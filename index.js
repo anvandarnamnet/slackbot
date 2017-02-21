@@ -35,6 +35,8 @@ app.get('/', function(reques, response) {
 app.post('/', function(req, res) {
   payload.text = req.body.name;
   payload.username = req.body.user;
+  options.url = req.body.chat;
+
   console.log(req.body);
   request(options, function (err, res, body) {
     console.log(body);
