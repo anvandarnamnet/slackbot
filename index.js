@@ -10,9 +10,9 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
+app.get('/', function(reques, response) {
   response.render('pages/index');
-  request.post({url:'http://service.com/upload', form: {key:'value'}}, function(err,httpResponse,body){ /* ... */ })
+  request.post({url:'https://hooks.slack.com/services/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', payload: {"text":"yo"}}, function(err,httpResponse,body){ console.log("body")});
 });
 
 app.listen(app.get('port'), function() {
