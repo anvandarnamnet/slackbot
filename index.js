@@ -32,6 +32,12 @@ app.get('/', function(reques, response) {
 
 });
 
+app.get('/callback', function(reques, response) {
+  response.render('pages/index');
+  console.log(reques);
+});
+
+/*
 app.post('/', function(req, res) {
   payload.text = req.body.name;
   payload.username = req.body.user;
@@ -45,6 +51,8 @@ app.post('/', function(req, res) {
 
 
 });
+
+*/
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
