@@ -32,9 +32,26 @@ app.get('/', function(reques, response) {
 
 });
 
-app.get('/callback', function(reques, response) {
-  response.render('pages/index');
-  console.log(reques);
+var clientId = "143457452320.144253511221";
+var clientSecret = "fdfb5b7fedfc81dca623f06e3e813a4b";
+app.get('/callback', function(reques, responsee) {
+
+  var code = reques.query.code;
+  var redirectString = 'http://slack.com/api/oauth.access?client_id=' +clientId + '&client_secret=' + clientSecret + '&code=' + code;
+  var token = "hej";
+  request(redirectString, function(error,response,body){
+    var jsonBody = JSON.parse(body);
+    token = jsonBody["access_token"];
+  //  console.log(body);
+    var groupString = 'https://slack.com/api/users.list?token=' + token;
+    request(groupString, function(error, response, body){
+      console.log(body + " hejk");
+    });
+
+    responsee.redirect(groupString);
+  });
+
+
 });
 
 /*
