@@ -21,11 +21,15 @@ app.get('/', function(reques, response) {
   if(reques.cookies.slackApiToken != null){
     console.log(reques.cookies.slackApiToken);
     var token = reques.cookies.slackApiToken.split(',');
-    console.log(token[0]);
-    getChannelInfo(token[0]).then(function(body){
-      response.render('pages/index');
+    var promises = [];
+    for(var i = 0; i < token.length; i++){
+      promises.push(getChannelInfo(token[i]));
+    }
 
+    Promise.all(promises).then(values => {
+        response.render('pages/index', {data: values});
     });
+
   } else{
     response.render('pages/index');
 
@@ -100,7 +104,6 @@ var getChannelInfo = function(incomingToken){
         reject(error);
       } else{
         var jsonBody = JSON.parse(body);
-        console.log(jsonBody);
         resolve(jsonBody);
       }
     });
