@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.2.5",
-  "description": "A sample Node.js app using Express 4",
+  "name": "A slack bot",
+  "version": "1.0.0",
+  "description": "",
   "engines": {
     "node": "5.9.1"
   },
@@ -14,11 +14,13 @@
     "cookie-parser": "^1.4.3",
     "ejs": "2.4.1",
     "express": "4.13.3",
+    "mongoose": "^4.8.5",
+    "node-schedule": "^1.2.0",
     "request": "^2.79.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": ""
   },
   "keywords": [
     "node",

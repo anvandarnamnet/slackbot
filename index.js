@@ -3,11 +3,14 @@ var app = express();
 var request = require('request');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var schedule = require('node-schedule');
+var jsonHandler = require('./JsonHandeler')
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -16,23 +19,34 @@ var clientId = "143457452320.144253511221";
 var clientSecret = "fdfb5b7fedfc81dca623f06e3e813a4b";
 var slackApiTokenString = 'slackApiToken';
 var token;
+var count = 1;
 
 app.get('/', function(reques, response) {
-  if(reques.cookies.slackApiToken != null){
+  var date = new Date(2017,01,28,15,20 + count,00);
+  count++;
+  scheduleMessage(0,0,date);
+  var now = new Date();
+  console.log(date.getTime() - now.getTime());
+console.log(reques.cookies.slackApiToken);
+  if(reques.cookies.slackApiToken){
     console.log(reques.cookies.slackApiToken);
     var token = reques.cookies.slackApiToken.split(',');
     var promises = [];
     for(var i = 0; i < token.length; i++){
       promises.push(getChannelInfo(token[i]));
+      promises.push(getUsers(token[i]))
     }
 
     Promise.all(promises).then(values => {
-        response.render('pages/index', {data: values});
+      //  console.log(values);
+        var val = getReformatedValues(values);
+        console.log(val);
+        response.render('pages/index', {data: val});
     });
 
   } else{
+    console.log("helloo!");
     response.render('pages/index');
-
   }
 });
 
@@ -42,37 +56,48 @@ app.get('/callback', function(reques, responsee) {
   getToken(code).then(function(tokenm){
     token = tokenm;
     if(reques.cookies.slackApiToken == null){
-      responsee.cookie(slackApiTokenString, tokenm).redirect('/');
+      responsee.cookie(slackApiTokenString, tokenm, { maxAge: 90000000000, httpOnly: true }).redirect('/');
     } else{
       var oldToken = reques.cookies.slackApiToken;
       var tokenArr = oldToken.split(',');
       for(var i = 0; i < tokenArr.length; i++){
         if(tokenArr[i] === tokenm){
-          responsee.cookie(slackApiTokenString, oldToken).redirect('/');
+          responsee.cookie(slackApiTokenString, oldToken,{ maxAge: 90000000000, httpOnly: true }).redirect('/');
           return;
         }
       }
 
       oldToken = oldToken + ',' + tokenm;
-      responsee.cookie(slackApiTokenString, oldToken).redirect('/');
+      responsee.cookie(slackApiTokenString, oldToken,{ maxAge: 90000000000, httpOnly: true }).redirect('/');
 
     }
   });
-
-  /*
-  getToken(code).then(function(tokenm){
-    return getIM()
-  }).then(function(users){
-    console.log(users[2].id);
-    return sendDirectMessage(users[2].id, 'weeey!!')
-  }).then(function(response){
-    responsee.send(response);
-  }).catch(function (error) {
-     console.log(error);
-   });
-  */
-
 });
+
+var getReformatedValues = function(values){
+  var returnArray = [];
+
+  for(var i = 0; i < values.length; i += 2){
+    var teamInfo = values[i].team;
+    var incomingUsers = values[i+1];
+    var obj = {
+      team: teamInfo,
+      users: incomingUsers
+    }
+
+    returnArray.push(obj);
+  }
+
+  return returnArray;
+}
+
+
+var scheduleMessage = function(message, userChannel, date){
+  var now = new Date();
+  var j = schedule.scheduleJob(date, function(){
+    console.log('The answer to life, the universe, and everything! ' + date.getTime());
+  });
+}
 
 
 // get a token based on the code recieved from the slack oAtuh and the apps client id and client secret.
@@ -86,7 +111,6 @@ var getToken = function(code){
       if(error != null){
         reject(error);
       } else{
-
         token = jsonBody["access_token"];
         // return the token
         resolve(token);
@@ -112,9 +136,9 @@ var getChannelInfo = function(incomingToken){
 // send a direct message to somone in the slack channel
 // @channel - the channel id for the direct message
 // @text - the text to send
-var sendDirectMessage = function(channel, text){
+var sendDirectMessage = function(channel, text, tokenm){
   return new Promise(function(resolve, reject){
-    var sendDMMessageString = 'https://slack.com/api/chat.postMessage?token=' + token + '&channel=' + channel + '&text=' + text + '&as_user=true'  ;
+    var sendDMMessageString = 'https://slack.com/api/chat.postMessage?token=' + tokenm + '&channel=' + channel + '&text=' + text + '&as_user=true'  ;
     request(sendDMMessageString, function(error, response, body){
       if(error != null){
         reject(error);
@@ -130,9 +154,9 @@ var sendDirectMessage = function(channel, text){
 
 
 // get all the IM ids for direct messages
-var getIM = function(){
+var getIM = function(tokenm){
   return new Promise(function(resolve, reject){
-    var groupString = 'https://slack.com/api/im.list?token=' + token;
+    var groupString = 'https://slack.com/api/im.list?token=' + tokenm;
     request(groupString, function(error, response, body){
       if(error != null){
         reject(error);
@@ -147,9 +171,9 @@ var getIM = function(){
 
 
 // get the specifik users for a token (a channel)
-var getUsers = function(){
+var getUsers = function(tokenm){
   return new Promise(function(resolve, reject){
-    var groupString = 'https://slack.com/api/users.list?token=' + token;
+    var groupString = 'https://slack.com/api/users.list?token=' + tokenm;
     request(groupString, function(error, response, body){
       if(error != null){
         reject(error);
