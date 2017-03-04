@@ -60,7 +60,7 @@ app.get('/', function(reques, response) {
 
     Promise.all(promises).then(values => {
         var val = getReformatedValues(values);
-        console.log(val);
+        console.log(val.team);
         response.render('pages/index', {data: val});
     });
 
