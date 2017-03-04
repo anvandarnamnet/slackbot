@@ -1,37 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Slack Service</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./styles/style.css">
+    <title>Slack Service</title>
 </head>
+
 <body>
-<script>
+    <div class="container">
+        <header>
+            <h1>Automate your one on ones</h1>
+            <a href="#">why?</a>
+        </header>
+        <div class="content">
+            <h1>Your teams</h1>
+            <ul>
+            <% if (data.length > 0) { 
+              data.map(element => { %>
+                <li><%= element.team.name %></li>
+            <% })} else { %>
+                <li>No teams yet...</li>
+            <% } %>
+            </ul>
+            <a class="slack-button" href="https://slack.com/oauth/authorize?scope=incoming-webhook,users:read,chat:write:user,im:read,team:read&client_id=143457452320.144253511221"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+            <a class="gotomanager" href="#">Not a manager yet?</a>
+        </div>
+        <footer>Copyright ©getspeakup.com 2017</footer>
+    </div>
+</body>
 
-</script>
-
-<div class="container">
-  <h3>
-  Automate your one on ones in slack
-  <a href="https://slack.com/oauth/authorize?scope=incoming-webhook,users:read,chat:write:user,im:read,team:read&client_id=143457452320.144253511221"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
-</h3>
-</div>
-
-<div class="container">
-  <table class = "table">
-		<caption>Your teams</caption>
-		<thead>
-			<tr>
-				<th>Team</th>
-
-			</tr>
-		</thead>
-		<tbody>
-			<% for (var i = 0; i < data.length; i++) {
+</html>
+<!--
+<% for (var i = 0; i < data.length; i++) {
         if(data.length != 0){ %>
         <tr>
           <td> <%= data[i].team.name %>
@@ -43,9 +46,4 @@
 
 
         </tr>
-        <% }} %>
-		</tbody>
-</table>
-</div>
-</body>
-</html>
+        <% }} %>-->
