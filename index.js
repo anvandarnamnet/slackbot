@@ -5,12 +5,18 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var schedule = require('node-schedule');
 var jsonHandler = require('./JsonHandeler')
+var mongoose = require('mongoose');
+
+// setup our database connection
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.set('port', (process.env.PORT || 5000));
+
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -54,6 +60,7 @@ app.get('/', function(reques, response) {
 
     Promise.all(promises).then(values => {
         var val = getReformatedValues(values);
+        console.log(val);
         response.render('pages/index', {data: val});
     });
 
@@ -68,16 +75,29 @@ var getApiTokenFromCookie = function(cookie){
 
 app.get('/s', function(reques, responsee){
   var tokens = getApiTokenFromCookie(reques.cookies.slackApiToken)
+  // teamnamn ska komma via request iallafall
   var token = tokens[0];
   var teaminfo;
+  // denna ska komma via request
   var message = 'Hello frieeend';
+  // denna ska kommma via request
   var time = new Date(2017,02,01, 19, 00, 00);
-  console.log(time);
-  apiHandler.getChannelInfo(token).then(function(info){
-    //console.log(info)
-    teaminfo = info.team;
+  // denna ska komma via post requestet
+  var days = {
+    monday: false,
+    tuesday: true,
+  };
+  apiHandler.getUsers(token).then(function(users){
+    //console.log(users);
+    apiHandler.getChannelInfo(token).then(function(info){
+      //console.log(info)
+      teaminfo = info.team;
+      jsonHandler.addNewMessage(token, teaminfo,users, time.getHours(), message,days).then(function(back){
+        console.log(back);
+      });
+    });
   });
-  responsee.render('pages/index', {data: []});
+  responsee.redirect('/');
 });
 
 app.get('/callback', function(reques, responsee) {
@@ -100,6 +120,7 @@ app.get('/callback', function(reques, responsee) {
     }
   });
 });
+
 
 var getReformatedValues = function(values){
   var returnArray = [];
