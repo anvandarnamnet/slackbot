@@ -1,26 +1,22 @@
 var skeleton = [];
 
-function addNewChannel(){
-  var newChannel = {
-    token: '',
-    teamInfo: {
+function addNewChannel(token, teaminfoInput, users,time, message, days){
+  //users: [{
+    //name: '',
+    //id: ''
+  //}]
 
-    },
-    users:[{
-      name: '',
-      message: {
-        time: '',
-        message: '',
-        channel: '',
-        monday: false,
-        tuesday:false,
-        wednesday: false,
-        thursdat: false,
-        friday: false,
-        saturdat: false,
-        sunday: true
-      }
-    }]
-
+  /*
+  time: {
+  days
+  time
+}
+  */
+  var newMessage = {
+    token: token,
+    teamInfo: teaminfoInput,
+    time: time,
+    message: message,
+    users: users
   }
 }
