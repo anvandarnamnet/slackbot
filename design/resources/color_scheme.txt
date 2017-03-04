@@ -1,8 +1,0 @@
-green: #8ec153
-blue: #3baeda
-yellow: #f6bb43
-red: #e95b43
-darkgrey: #434a54
-grey: #d9dee4
-lightgrey: #eef1f7
-white: #ffffff
