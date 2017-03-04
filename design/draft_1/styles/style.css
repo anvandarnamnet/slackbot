@@ -1,0 +1,103 @@
+/*
+----- COLOR SCHEME -----
+
+green: #8ec153
+blue: #3baeda
+yellow: #f6bb43
+red: #e95b43
+darkgrey: #434a54
+grey: #d9dee4
+lightgrey: #eef1f7
+white: #ffffff
+
+*/
+
+
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+
+.container {
+    height: 100%;
+    background: url("../images/background.jpg") no-repeat center center;
+    background-size: cover;
+
+    font-family: 'Montserrat', serif;
+    color: #ffffff;
+
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: box;
+
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    
+}
+
+header {
+    display: block;
+    width: 100%;
+    height: 100px;
+    background-color: #8ec153;
+    text-align: center;
+}
+
+header > h1 {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+header > a {
+    display: inline-block;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.content {
+    
+    background-color: #3baeda;
+    margin: 20px;
+    border-radius: 8px;
+}
+
+.content > p {
+    display: block;
+    margin: 0 20px;
+    margin-top: 40px;
+    padding: 8px;
+    border-bottom: 1px solid #ffffff;
+}
+
+.slack-button {
+    display: block;
+    margin: 0 60px;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid #ffffff;
+}
+
+.gotomanager {
+    display: block;
+    text-align: center;
+    margin: 15px 0;
+    color: #ffffff;
+}
+
+footer {
+    position: absolute;
+    width: 100%;    
+    font-size: 14px;
+    text-align: center;
+    bottom: 20px;
+}
