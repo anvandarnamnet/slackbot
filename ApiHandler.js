@@ -1,5 +1,8 @@
 var request = require('request');
 
+var clientId = "143457452320.144253511221";
+var clientSecret = "fdfb5b7fedfc81dca623f06e3e813a4b";
+
 // get a token based on the code recieved from the slack oAtuh and the apps client id and client secret.
 var getToken = function(code){
   return new Promise(function(resolve, reject) {

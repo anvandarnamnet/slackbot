@@ -21,12 +21,10 @@ app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-var clientId = "143457452320.144253511221";
-var clientSecret = "fdfb5b7fedfc81dca623f06e3e813a4b";
 var slackApiTokenString = 'slackApiToken';
 var token;
 var jsonfile = require('jsonfile')
-var apiHandler = require('./ApiHandeler');
+var apiHandler = require('./ApiHandler');
 //var file = './tmp/data.json'
 //var obj = {name: 'JP'}
 
