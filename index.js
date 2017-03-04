@@ -29,13 +29,18 @@ var apiHandler = require('./ApiHandler');
 
 setInterval(function(){
   checkOutgoingMessages();
-}, 600000);
+}, 1000);
 
 var checkOutgoingMessages = function(){
 
 }
 
 app.get('/', function(reques, response) {
+  var messages = jsonHandler.getMessagesByTime(18,20);
+  messages.then(function(mes){
+    console.log(mes);
+  });
+
   if(reques.cookies.slackApiToken){
     console.log(reques.cookies.slackApiToken);
     var token = reques.cookies.slackApiToken.split(',');
@@ -46,11 +51,12 @@ app.get('/', function(reques, response) {
       promises.push(apiHandler.getUsers(token[i]));
       promises.push(jsonHandler.getMessagesByToken(token[i]));
     }
+
     Promise.all(promises).then(values => {
         var val = getReformatedValues(values);
-        //console.log(values);
         response.render('pages/index', {data: val});
     });
+
   } else{
     response.render('pages/index', {data: []});
   }
@@ -73,6 +79,11 @@ app.get('/s', function(reques, responsee){
   var days = {
     monday: false,
     tuesday: true,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
+    sunday: false
   };
   apiHandler.getUsers(token).then(function(users){
     //console.log(users);
@@ -86,6 +97,7 @@ app.get('/s', function(reques, responsee){
   });
   responsee.redirect('/');
 });
+
 
 app.get('/callback', function(reques, responsee) {
   var code = reques.query.code;
@@ -106,7 +118,6 @@ app.get('/callback', function(reques, responsee) {
     }
   });
 });
-
 
 var getReformatedValues = function(values){
   var returnArray = [];

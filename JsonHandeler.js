@@ -5,7 +5,13 @@ var messageSchema = mongoose.Schema({
   token: {type: String, required: true},
   teamInfo: {type: Object, required: true},
   hour: {type: String, required: true},
-  days: {type: Object, required: true},
+  monday: {type: Boolean, required: true},
+  tuesday: {type: Boolean, required: true},
+  wednesday: {type: Boolean, required: true},
+  thursday: {type: Boolean, required: true},
+  friday: {type: Boolean, required: true},
+  saturday: {type: Boolean, required: true},
+  sunday: {type: Boolean, required: true},
   message: {type: String, required: true},
   users: {type: Object, required: true},
   createdAt: {type: Date, default:Date.now}
@@ -31,6 +37,24 @@ var getMessagesByToken = function(token){
 module.exports.getMessagesByToken = getMessagesByToken;
 
 
+var getMessagesByTime = function(startTime, endTime){
+
+  return new Promise(function(resolve,reject){
+    var query = messages.find({
+      hour: {
+          $gt: startTime,
+          $lt: endTime
+        },
+      monday: true
+    });
+
+    query.exec(function(err, messages){
+      resolve(messages);
+    })
+  });
+}
+
+module.exports.getMessagesByTime = getMessagesByTime;
 
 var addNewMessage = function(token, teaminfoInput, users,time, message, days){
   return new Promise(function(resolve, reject){
@@ -38,7 +62,13 @@ var addNewMessage = function(token, teaminfoInput, users,time, message, days){
       token: token,
       teamInfo: teaminfoInput,
       hour: time,
-      days: days,
+      monday: days.monday,
+      tuesday:days.tuesday,
+      wednesday:days.wednesday,
+      thursday:days.thursday,
+      friday:days.friday,
+      saturday:days.saturday,
+      sunday:days.sunday,
       message: message,
       users: users
     }
