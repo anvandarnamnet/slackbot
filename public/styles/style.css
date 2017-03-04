@@ -70,6 +70,14 @@ header > a {
     border-radius: 8px;
 }
 
+.content > h1 {
+    display: block;
+    margin: 20px 20px;
+    font-size: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff;
+}
+
 .content > ul {
     display: block;
     margin: auto;
@@ -80,21 +88,31 @@ header > a {
 }
 
 .content > ul > li {
+    cursor: pointer; cursor: hand;
+}
+
+.team_name {
     padding: 8px;
+    padding-left: 40px;
     border-bottom: 1px solid #ffffff;
 }
 
-.content > ul > li > span {
+.team_goto {
     position: absolute;
     right: 48px;
 }
 
-.content > h1 {
-    display: block;
-    margin: 20px 20px;
-    font-size: 24px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ffffff;
+.team_image {
+    position: absolute;
+    left: 40px;
+    margin-top: -5px;
+}
+
+.team_image > img {
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+
 }
 
 .slack-button {
@@ -102,14 +120,14 @@ header > a {
     margin: 0 60px;
     padding: 20px 0;
     text-align: center;
-    border-bottom: 1px solid #ffffff;
 }
 
 .gotomanager {
     display: block;
     text-align: center;
-    margin: 5px 0;
-    padding: 10px 0;
+    margin: 0 60px;
+    border-top: 1px solid white;
+    padding: 15px 0;
     color: #ffffff;
 }
 

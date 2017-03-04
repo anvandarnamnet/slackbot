@@ -19,31 +19,24 @@
             <h1>Your teams</h1>
             <ul>
             <% if (data.length > 0) { 
-              data.map(element => { %>
-                <li><%= element.team.name %> <span>></span></li>
+              data.map(function(element, index) { %>
+                <li onclick="openMessages(<%= index %>)">
+                  <div class="team_name"><span class="team_image"><img src="<%= element.team.icon.image_44 %>" ></span> <%= element.team.name %><span class="team_goto">></span><div>
+                </li>
             <% })} else { %>
                 <li>No teams yet...</li>
             <% } %>
             </ul>
             <a class="slack-button" href="https://slack.com/oauth/authorize?scope=incoming-webhook,users:read,chat:write:user,im:read,team:read&client_id=143457452320.144253511221"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+            <div>
+            <% if (!(data.length > 0)) { %>
             <a class="gotomanager" target="_blank" href="https://get.slack.help/hc/en-us/articles/218124397-Changing-a-team-member-s-role">Not a manager yet?</a>
+            <% } %>
         </div>
         <footer>Copyright ©getspeakup.com 2017</footer>
     </div>
+
+    <script async src="scripts/script.js" type="text/javascript"></script>
 </body>
 
 </html>
-<!--
-<% for (var i = 0; i < data.length; i++) {
-        if(data.length != 0){ %>
-        <tr>
-          <td> <%= data[i].team.name %>
-          <div id="<%= data[i].team.id %>">
-            <p>Hello </p>
-
-          </div>
-          </td>
-
-
-        </tr>
-        <% }} %>-->
