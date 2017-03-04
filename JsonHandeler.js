@@ -1,17 +1,6 @@
-var skeleton = [];
+var  jsFileWriter
 
-function addNewChannel(token, teaminfoInput, users,time, message, days){
-  //users: [{
-    //name: '',
-    //id: ''
-  //}]
-
-  /*
-  time: {
-  days
-  time
-}
-  */
+var addNewMessage = function(token, teaminfoInput, users,time, message, days){
   var newMessage = {
     token: token,
     teamInfo: teaminfoInput,
