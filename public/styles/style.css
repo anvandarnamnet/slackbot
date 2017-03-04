@@ -72,12 +72,23 @@ header > a {
 
 .content > ul {
     display: block;
+    margin: auto;
     margin: 0 20px;
     margin-top: 20px;
-    padding: 8px;
-    border-bottom: 1px solid #ffffff;
+    padding: 0;
     list-style: none;
 }
+
+.content > ul > li {
+    padding: 8px;
+    border-bottom: 1px solid #ffffff;
+}
+
+.content > ul > li > span {
+    position: absolute;
+    right: 48px;
+}
+
 .content > h1 {
     display: block;
     margin: 20px 20px;
