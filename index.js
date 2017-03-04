@@ -24,7 +24,7 @@ app.set('view engine', 'ejs');
 var slackApiTokenString = 'slackApiToken';
 var token;
 var jsonfile = require('jsonfile')
-var apiHandler = require('./ApiHandeler');
+var apiHandler = require('./ApiHandler');
 //var file = './tmp/data.json'
 //var obj = {name: 'JP'}
 
