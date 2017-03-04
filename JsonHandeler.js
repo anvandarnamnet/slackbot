@@ -15,6 +15,23 @@ var messageSchema = mongoose.Schema({
 var messages = mongoose.model("messages", messageSchema);
 module.exports = messages;
 
+var getMessagesByToken = function(token){
+  return new Promise(function(resolve, reject){
+    var query = messages.find({token: token});
+
+    query.exec(function(err, messages){
+     if(err){
+       return console.log(err);
+     }
+     resolve(messages);
+    });
+  });
+}
+
+module.exports.getMessagesByToken = getMessagesByToken;
+
+
+
 var addNewMessage = function(token, teaminfoInput, users,time, message, days){
   return new Promise(function(resolve, reject){
     var newMessage = {

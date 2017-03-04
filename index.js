@@ -25,43 +25,32 @@ var slackApiTokenString = 'slackApiToken';
 var token;
 var jsonfile = require('jsonfile')
 var apiHandler = require('./ApiHandler');
-//var file = './tmp/data.json'
-//var obj = {name: 'JP'}
 
-//jsonfile.writeFile(file, obj, function (err) {
-//  console.error(err)
-//});
 
 setInterval(function(){
   checkOutgoingMessages();
-}, 1000);
+}, 600000);
 
-var jsonfile = require('jsonfile')
-var file = './tmp/data.json'
 var checkOutgoingMessages = function(){
-  jsonfile.readFile(file, function(err, obj) {
-    // fix shit (automated)
 
-  });
 }
 
 app.get('/', function(reques, response) {
   if(reques.cookies.slackApiToken){
     console.log(reques.cookies.slackApiToken);
-    token = reques.cookies.slackApiToken.split(',');
+    var token = reques.cookies.slackApiToken.split(',');
     var promises = [];
 
     for(var i = 0; i < token.length; i++){
       promises.push(apiHandler.getChannelInfo(token[i]));
-      promises.push(apiHandler.getUsers(token[i]))
+      promises.push(apiHandler.getUsers(token[i]));
+      promises.push(jsonHandler.getMessagesByToken(token[i]));
     }
-
     Promise.all(promises).then(values => {
         var val = getReformatedValues(values);
-        console.log(val.team);
+        //console.log(values);
         response.render('pages/index', {data: val});
     });
-
   } else{
     response.render('pages/index', {data: []});
   }
@@ -101,7 +90,6 @@ app.get('/s', function(reques, responsee){
 app.get('/callback', function(reques, responsee) {
   var code = reques.query.code;
   apiHandler.getToken(code).then(function(tokenm){
-    token = tokenm;
     if(reques.cookies.slackApiToken == null){
       responsee.cookie(slackApiTokenString, tokenm, { maxAge: 90000000000, httpOnly: true }).redirect('/');
     } else{
@@ -122,13 +110,17 @@ app.get('/callback', function(reques, responsee) {
 
 var getReformatedValues = function(values){
   var returnArray = [];
-  for(var i = 0; i < values.length; i += 2){
+  console.log(values.length);
+  for(var i = 0; i < values.length; i += 3){
     var teamInfo = values[i].team;
     var incomingUsers = values[i+1];
+    var messages = values[i+2];
     var obj = {
       team: teamInfo,
-      users: incomingUsers
+      users: incomingUsers,
+      messages: messages
     }
+
     returnArray.push(obj);
   }
   return returnArray;
