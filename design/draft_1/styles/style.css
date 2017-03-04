@@ -71,11 +71,19 @@ header > a {
     border-radius: 8px;
 }
 
-.content > p {
+.content > ul {
     display: block;
     margin: 0 20px;
-    margin-top: 40px;
+    margin-top: 20px;
     padding: 8px;
+    border-bottom: 1px solid #ffffff;
+    list-style: none;
+}
+.content > h1 {
+    display: block;
+    margin: 20px 20px;
+    font-size: 24px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #ffffff;
 }
 
@@ -90,7 +98,8 @@ header > a {
 .gotomanager {
     display: block;
     text-align: center;
-    margin: 15px 0;
+    margin: 5px 0;
+    padding: 10px 0;
     color: #ffffff;
 }
 
