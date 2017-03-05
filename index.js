@@ -25,14 +25,19 @@ var slackApiTokenString = 'slackApiToken';
 var token;
 var jsonfile = require('jsonfile')
 var apiHandler = require('./ApiHandler');
-
+var scheduledMessages = [];
 
 setInterval(function(){
   checkOutgoingMessages();
-}, 1000);
+}, 10000);
 
 var checkOutgoingMessages = function(){
-
+  var now = new Date();
+  jsonHandler.getMessageByDay(now.getDay()).then(function(messages){
+    for(var i = 0; i < messages.length; i++){
+      scheduleMessage(messages[i]);
+    }
+  });
 }
 
 app.get('/', function(reques, response) {
@@ -42,10 +47,8 @@ app.get('/', function(reques, response) {
   });
 
   if(reques.cookies.slackApiToken){
-    console.log(reques.cookies.slackApiToken);
     var token = reques.cookies.slackApiToken.split(',');
     var promises = [];
-
     for(var i = 0; i < token.length; i++){
       promises.push(apiHandler.getChannelInfo(token[i]));
       promises.push(apiHandler.getUsers(token[i]));
@@ -60,7 +63,6 @@ app.get('/', function(reques, response) {
         console.log(val);
         response.render('pages/index', {data: val});
     });
-
   } else{
     response.render('pages/index', {data: []});
   }
@@ -72,8 +74,8 @@ var getApiTokenFromCookie = function(cookie){
 
 app.get('/add', function(reques, responsee){
   responsee.render('pages/add');
+});
 
-})
 app.get('/team', function(reques,responsee){
   var teamToken = reques.query.token;
   var promises = [];
@@ -90,6 +92,7 @@ app.get('/team', function(reques,responsee){
   });
 
 });
+
 app.get('/s', function(reques, responsee){
   var tokens = getApiTokenFromCookie(reques.cookies.slackApiToken)
   // teamnamn ska komma via request iallafall
@@ -98,7 +101,7 @@ app.get('/s', function(reques, responsee){
   // denna ska komma via request
   var message = 'Hello frieeend';
   // denna ska kommma via request
-  var time = new Date(2017,02,01, 19, 00, 00);
+  var time = new Date(2017,02,01, 20, 00, 00);
   // denna ska komma via post requestet
   var days = {
     monday: false,
@@ -107,18 +110,21 @@ app.get('/s', function(reques, responsee){
     thursday: false,
     friday: false,
     saturday: false,
-    sunday: false
+    sunday: true
   };
-  apiHandler.getUsers(token).then(function(users){
-    //console.log(users);
-    apiHandler.getChannelInfo(token).then(function(info){
-      //console.log(info)
-      teaminfo = info.team;
-      jsonHandler.addNewMessage(token, teaminfo,users, time.getHours(), message,days).then(function(back){
-        console.log(back);
-      });
-    });
+  var promises = [];
+
+  promises.push(apiHandler.getChannelInfo(token));
+  promises.push(apiHandler.getUsers(token));
+
+  Promise.all(promises).then(values => {
+      console.log(values);
+      //jsonHandler.addNewMessage(token, teaminfo,users, time.getHours(), message,days).then(function(back){
+        //console.log(back);
+      //});
+
   });
+
   responsee.redirect('/');
 });
 
@@ -161,10 +167,18 @@ var getReformatedValues = function(values){
   return returnArray;
 }
 
-var scheduleMessage = function(message, userChannel, date){
+var scheduleMessage = function(message){
   var now = new Date();
-  var j = schedule.scheduleJob(date, function(){
-    console.log('The answer to life, the universe, and everything! ' + date.getTime());
+  now.setHours(message.hour - 1);
+  now.setMinutes(35);
+  var j = schedule.scheduleJob(now, function(){
+    console.log('The answer to life, the universe, and everything! ' + now.getTime());
+    var users = message.users;
+    for(var i = 0; i < users.length; i++){
+      apiHandler.sendDirectMessage(users[i].id, "Hello friend", message.token).then(function(cb){
+        console.log(cb);
+      });
+    }
   });
 }
 

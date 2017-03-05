@@ -37,6 +37,68 @@ var getMessagesByToken = function(token){
 module.exports.getMessagesByToken = getMessagesByToken;
 
 
+var getMessageByDay = function(day){
+  return new Promise(function(resolve, reject){
+    var query;
+    switch (day) {
+      case 0:
+      query = messages.find({
+        sunday: true
+      });
+      break;
+
+      case 1:
+      query = messages.find({
+        monday: true
+      });
+      break;
+
+      case 2:
+      query = messages.find({
+        tuesday: true
+      });
+      break;
+
+      case 3:
+      query = messages.find({
+        wednesday: true
+      });
+      break;
+
+      case 4:
+      query = messages.find({
+        thursday: true
+      });
+      break;
+
+      case 5:
+      query = messages.find({
+        friday: true
+      });
+      break;
+
+      case 6:
+      query = messages.find({
+        saturday: true
+      });
+      break;
+
+      default:
+      query = messages.find();
+    }
+
+    query.exec(function(err, messages){
+      if(err){
+        reject(err);
+      } else{
+          resolve(messages);
+        }
+    });
+
+  });
+}
+
+module.exports.getMessageByDay = getMessageByDay;
 var getMessagesByTime = function(startTime, endTime){
 
   return new Promise(function(resolve,reject){
@@ -49,7 +111,11 @@ var getMessagesByTime = function(startTime, endTime){
     });
 
     query.exec(function(err, messages){
-      resolve(messages);
+      if(err){
+        reject(err);
+      }else{
+        resolve(messages);
+      }
     })
   });
 }
@@ -78,8 +144,6 @@ var addNewMessage = function(token, teaminfoInput, users,time, message, days){
         reject("Something went wrong when adding a new message to the db");
         console.log("Something went wrong when adding a new message to the db: " + err);
       } else{
-        console.log("whey");
-
         resolve("Whey");
       }
     });
