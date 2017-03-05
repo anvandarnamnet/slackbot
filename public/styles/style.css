@@ -64,7 +64,7 @@ header > a {
 }
 
 .content {
-    
+
     background-color: #3baeda;
     margin: 20px;
     border-radius: 8px;
@@ -133,7 +133,7 @@ header > a {
 
 footer {
     position: absolute;
-    width: 100%;    
+    width: 100%;
     font-size: 14px;
     text-align: center;
     bottom: 20px;

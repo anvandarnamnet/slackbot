@@ -66,6 +66,11 @@ var getApiTokenFromCookie = function(cookie){
   return cookie.split(',');
 }
 
+app.get('/add', function(reques, responsee){
+  responsee.render('pages/add');
+
+})
+
 app.get('/s', function(reques, responsee){
   var tokens = getApiTokenFromCookie(reques.cookies.slackApiToken)
   // teamnamn ska komma via request iallafall
