@@ -20,8 +20,17 @@
             <ul>
             <% if (data.length > 0) { 
               data.map(function(element, index) { %>
-                <li onclick="openMessages(<%= index %>)">
-                  <div class="team_name"><span class="team_image"><img src="<%= element.team.icon.image_44 %>" ></span> <%= element.team.name %><span class="team_goto">></span><div>
+                <li>
+                  <div onclick="openMessages(<%= index %>)" class="team_name"><span class="team_image"><img src="<%= element.team.icon.image_44 %>" /></span> <%= element.team.name %><span class="team_goto">></span></div>
+                  <div class="message_list open">
+                    <h1>Messages</h1>
+                    <ul>
+                        <li>foo</li>
+                        <li>bar</li>
+                        <li>baz</li>
+                    </ul>
+                    <a href="#">Add new message</a>
+                  </div>
                 </li>
             <% })} else { %>
                 <li>No teams yet...</li>
@@ -32,6 +41,7 @@
             <% if (!(data.length > 0)) { %>
             <a class="gotomanager" target="_blank" href="https://get.slack.help/hc/en-us/articles/218124397-Changing-a-team-member-s-role">Not a manager yet?</a>
             <% } %>
+            </div>
         </div>
         <footer>Copyright ©getspeakup.com 2017</footer>
     </div>
