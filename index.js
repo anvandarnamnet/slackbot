@@ -54,6 +54,10 @@ app.get('/', function(reques, response) {
 
     Promise.all(promises).then(values => {
         var val = getReformatedValues(values);
+        for(var i = 0; i < val.length; i++){
+          val[i].token = token[i];
+        }
+        console.log(val);
         response.render('pages/index', {data: val});
     });
 
@@ -70,7 +74,22 @@ app.get('/add', function(reques, responsee){
   responsee.render('pages/add');
 
 })
+app.get('/team', function(reques,responsee){
+  var teamToken = reques.query.token;
+  var promises = [];
 
+  promises.push(apiHandler.getChannelInfo(teamToken));
+  promises.push(apiHandler.getUsers(teamToken));
+  promises.push(jsonHandler.getMessagesByToken(teamToken));
+
+  Promise.all(promises).then(values => {
+      var val = getReformatedValues(values)[0];
+      console.log(val);
+      val.token = teamToken;
+      responsee.render('pages/team', {data: val});
+  });
+
+});
 app.get('/s', function(reques, responsee){
   var tokens = getApiTokenFromCookie(reques.cookies.slackApiToken)
   // teamnamn ska komma via request iallafall
