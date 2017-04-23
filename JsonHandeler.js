@@ -99,6 +99,7 @@ var getMessageByDay = function(day){
 }
 
 module.exports.getMessageByDay = getMessageByDay;
+
 var getMessagesByTime = function(startTime, endTime){
 
   return new Promise(function(resolve,reject){

@@ -22,10 +22,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 var slackApiTokenString = 'slackApiToken';
-var token;
-var jsonfile = require('jsonfile')
 var apiHandler = require('./ApiHandler');
-var scheduledMessages = [];
 
 setInterval(function(){
   checkOutgoingMessages();
@@ -61,6 +58,8 @@ app.get('/', function(reques, response) {
           val[i].token = token[i];
         }
         console.log(val);
+
+        apiHandler.sendDirectMessage(val[0].users[1].id, "Yo", val[0].token);
         response.render('pages/index', {data: val});
     });
   } else{
@@ -156,9 +155,27 @@ var getReformatedValues = function(values){
     var teamInfo = values[i].team;
     var incomingUsers = values[i+1];
     var messages = values[i+2];
-    var obj = {
+    var users = [];
+
+    for(var i = 0; i < incomingUsers.length; i++){
+        var user = {
+            id: incomingUsers[i].id,
+            name: incomingUsers[i].real_name,
+            user_name: incomingUsers[i].name,
+            time_zone: incomingUsers[i].tz,
+            time_zone_offset: incomingUsers[i].tz_offset,
+            is_bot: incomingUsers[i].is_bot,
+            image:incomingUsers[i].profile.image_48
+        }
+
+        users.push(user);
+    }
+
+    console.log(users);
+
+      var obj = {
       team: teamInfo,
-      users: incomingUsers,
+      users: users,
       messages: messages
     }
 
