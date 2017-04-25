@@ -47,7 +47,7 @@ app.get('/', function(reques, response) {
     var token = reques.cookies.slackApiToken.split(',');
     var promises = [];
     for(var i = 0; i < token.length; i++){
-      promises.push(apiHandler.getChannelInfo(token[i]));
+      promises.push(apiHandler.getTeamInfo(token[i]));
       promises.push(apiHandler.getUsers(token[i]));
       promises.push(jsonHandler.getMessagesByToken(token[i]));
     }
@@ -57,9 +57,9 @@ app.get('/', function(reques, response) {
         for(var i = 0; i < val.length; i++){
           val[i].token = token[i];
         }
-        console.log(val);
 
         apiHandler.sendDirectMessage(val[0].users[1].id, "Yo", val[0].token);
+        apiHandler.getChannels(val[0].token);
         response.render('pages/index', {data: val});
     });
   } else{
@@ -79,7 +79,7 @@ app.get('/team', function(reques,responsee){
   var teamToken = reques.query.token;
   var promises = [];
 
-  promises.push(apiHandler.getChannelInfo(teamToken));
+  promises.push(apiHandler.getTeamInfo(teamToken));
   promises.push(apiHandler.getUsers(teamToken));
   promises.push(jsonHandler.getMessagesByToken(teamToken));
 
@@ -113,7 +113,7 @@ app.get('/s', function(reques, responsee){
   };
   var promises = [];
 
-  promises.push(apiHandler.getChannelInfo(token));
+  promises.push(apiHandler.getTeamInfo(token));
   promises.push(apiHandler.getUsers(token));
 
   Promise.all(promises).then(values => {

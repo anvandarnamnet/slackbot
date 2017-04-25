@@ -24,7 +24,7 @@ var getToken = function(code){
 module.exports.getToken = getToken;
 
 // get info of a team by token
-var getChannelInfo = function(incomingToken){
+var getTeamInfo = function(incomingToken){
   return new Promise(function(resolve, reject){
     var getInfoString = 'https://slack.com/api/team.info?token=' + incomingToken;
     request(getInfoString, function(error, response, body){
@@ -38,7 +38,7 @@ var getChannelInfo = function(incomingToken){
   });
 }
 
-module.exports.getChannelInfo = getChannelInfo;
+module.exports.getTeamInfo = getTeamInfo;
 
 // send a direct message to somone in the slack channel
 // @channel - the channel id for the direct message
@@ -79,6 +79,20 @@ var getIM = function(tokenm){
 
 module.exports.getIM = getIM;
 
+var getChannels = function(token){
+  return new Promise(function(resolve, reject){
+    var groupString = 'https://slack.com/api/channels.list?token=' + token;
+    request(groupString, function(error, response, body){
+      if(error != null){
+        reject(error);
+      }
+      var jsonBody = JSON.parse(body);
+      console.log(jsonBody.channels[0].members)
+    });
+  })
+}
+
+module.exports.getChannels = getChannels;
 
 // get the specifik users for a token (a channel)
 var getUsers = function(tokenm){
