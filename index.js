@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var schedule = require('node-schedule');
 var jsonHandler = require('./JsonHandeler')
 var mongoose = require('mongoose');
-
+var cronJob = require('./CronJobs');
+cronJob.start();
 // setup our database connection
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
@@ -58,8 +59,7 @@ app.get('/', function(reques, response) {
           val[i].token = token[i];
         }
 
-        apiHandler.sendDirectMessage(val[0].users[1].id, "Yo", val[0].token);
-        apiHandler.getChannels(val[0].token);
+        console.log(val)
         response.render('pages/index', {data: val});
     });
   } else{
