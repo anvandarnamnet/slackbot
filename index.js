@@ -25,24 +25,8 @@ app.set('view engine', 'ejs');
 var slackApiTokenString = 'slackApiToken';
 var apiHandler = require('./ApiHandler');
 
-setInterval(function(){
-  checkOutgoingMessages();
-}, 10000);
-
-var checkOutgoingMessages = function(){
-  var now = new Date();
-  jsonHandler.getMessageByDay(now.getDay()).then(function(messages){
-    for(var i = 0; i < messages.length; i++){
-      scheduleMessage(messages[i]);
-    }
-  });
-}
-
 app.get('/', function(reques, response) {
-  var messages = jsonHandler.getMessagesByTime(18,20);
-  messages.then(function(mes){
-    console.log(mes);
-  });
+
 
   if(reques.cookies.slackApiToken){
     var token = reques.cookies.slackApiToken.split(',');
@@ -106,7 +90,7 @@ app.get('/s', function(reques, responsee){
     monday: false,
     tuesday: true,
     wednesday: false,
-    thursday: false,
+    thursday: true,
     friday: false,
     saturday: false,
     sunday: true
@@ -118,9 +102,9 @@ app.get('/s', function(reques, responsee){
 
   Promise.all(promises).then(values => {
       console.log(values);
-      //jsonHandler.addNewMessage(token, teaminfo,users, time.getHours(), message,days).then(function(back){
-        //console.log(back);
-      //});
+      jsonHandler.addNewMessage(token, values[0],values[1], time.getHours(), message,days).then(function(back){
+        console.log(back);
+      });
 
   });
 
@@ -184,20 +168,7 @@ var getReformatedValues = function(values){
   return returnArray;
 }
 
-var scheduleMessage = function(message){
-  var now = new Date();
-  now.setHours(message.hour - 1);
-  now.setMinutes(35);
-  var j = schedule.scheduleJob(now, function(){
-    console.log('The answer to life, the universe, and everything! ' + now.getTime());
-    var users = message.users;
-    for(var i = 0; i < users.length; i++){
-      apiHandler.sendDirectMessage(users[i].id, "Hello friend", message.token).then(function(cb){
-        console.log(cb);
-      });
-    }
-  });
-}
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
