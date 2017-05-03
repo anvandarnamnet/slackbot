@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var Mixpanel = require('mixpanel');
 
 // the shema of the todolists
 var messageSchema = mongoose.Schema({
@@ -39,6 +40,7 @@ module.exports.getMessagesByToken = getMessagesByToken;
 
 
 var getMessageByDay = function(day){
+
   return new Promise(function(resolve, reject){
     var query;
     switch (day) {
@@ -143,6 +145,8 @@ module.exports.getMessageById = getMessageById;
 
 
 var addNewMessage = function(token, teaminfoInput, users,hour, minute, message, days){
+  mixpanel.track('new_1on1');
+
   return new Promise(function(resolve, reject){
     var newMessage = {
       token: token,
