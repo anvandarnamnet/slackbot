@@ -16,6 +16,7 @@
     "ejs": "2.4.1",
     "express": "4.13.3",
     "jsonfile": "^2.4.0",
+    "mixpanel": "^0.7.0",
     "moment-timezone": "^0.5.13",
     "mongoose": "^4.8.5",
     "node-cron": "^1.1.3",
