@@ -5,6 +5,7 @@ var messageSchema = mongoose.Schema({
   token: {type: String, required: true},
   teamInfo: {type: Object, required: true},
   hour: {type: String, required: true},
+  minute: {type: String, required: true},
   monday: {type: Boolean, required: true},
   tuesday: {type: Boolean, required: true},
   wednesday: {type: Boolean, required: true},
@@ -107,8 +108,7 @@ var getMessagesByTime = function(startTime, endTime){
       hour: {
           $gt: startTime,
           $lt: endTime
-        },
-      monday: true
+        }
     });
 
     query.exec(function(err, messages){
@@ -123,12 +123,32 @@ var getMessagesByTime = function(startTime, endTime){
 
 module.exports.getMessagesByTime = getMessagesByTime;
 
-var addNewMessage = function(token, teaminfoInput, users,time, message, days){
+var getMessageById = function(id){
+  return new Promise(function(resolve,reject){
+    var query = messages.find({
+      _id:id
+    });
+
+    query.exec(function(err, messages){
+      if(err){
+        reject(err);
+      }else{
+        resolve(messages);
+      }
+    })
+  });
+}
+
+module.exports.getMessageById = getMessageById;
+
+
+var addNewMessage = function(token, teaminfoInput, users,hour, minute, message, days){
   return new Promise(function(resolve, reject){
     var newMessage = {
       token: token,
       teamInfo: teaminfoInput,
       hour: time,
+      minute: minute,
       monday: days.monday,
       tuesday:days.tuesday,
       wednesday:days.wednesday,
@@ -145,7 +165,7 @@ var addNewMessage = function(token, teaminfoInput, users,time, message, days){
         reject("Something went wrong when adding a new message to the db");
         console.log("Something went wrong when adding a new message to the db: " + err);
       } else{
-        resolve("Whey");
+        resolve("Message added");
       }
     });
   });

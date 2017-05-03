@@ -26,8 +26,6 @@ var slackApiTokenString = 'slackApiToken';
 var apiHandler = require('./ApiHandler');
 
 app.get('/', function(reques, response) {
-
-
   if(reques.cookies.slackApiToken){
     var token = reques.cookies.slackApiToken.split(',');
     var promises = [];
@@ -42,8 +40,7 @@ app.get('/', function(reques, response) {
         for(var i = 0; i < val.length; i++){
           val[i].token = token[i];
         }
-
-        console.log(val)
+        console.log(val);
         response.render('pages/index', {data: val});
     });
   } else{
@@ -154,9 +151,6 @@ var getReformatedValues = function(values){
 
         users.push(user);
     }
-
-    console.log(users);
-
       var obj = {
       team: teamInfo,
       users: users,
