@@ -14,7 +14,9 @@ var Mixpanel = require('mixpanel');
 // create an instance of the mixpanel client
 var mixpanel = Mixpanel.init('28446a6b8950088604497db036de5bc2');
 
+// start cronstuff (sending messages at a specific time)
 cronJob.start();
+
 // setup our database connection
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
@@ -32,6 +34,8 @@ app.set('view engine', 'ejs');
 var slackApiTokenString = 'slackApiToken';
 var apiHandler = require('./ApiHandler');
 
+
+// the landingpage
 app.get('/', function(reques, response) {
   mixpanel.track('home_page_view');
   if(reques.cookies.slackApiToken){
@@ -48,7 +52,6 @@ app.get('/', function(reques, response) {
         for(var i = 0; i < val.length; i++){
           val[i].token = token[i];
         }
-        console.log(val);
         response.render('pages/index', {data: val});
     });
   } else{
@@ -56,14 +59,13 @@ app.get('/', function(reques, response) {
   }
 });
 
+// small split function
 var getApiTokenFromCookie = function(cookie){
   return cookie.split(',');
 }
 
-app.get('/add', function(reques, responsee){
-  responsee.render('pages/add');
-});
 
+// route for managerportal
 app.get('/team', function(reques,responsee){
   var teamToken = reques.query.token;
   var promises = [];
@@ -81,6 +83,7 @@ app.get('/team', function(reques,responsee){
 
 });
 
+// test route to add messagesb
 app.get('/s', function(reques, responsee){
   var tokens = getApiTokenFromCookie(reques.cookies.slackApiToken)
   // teamnamn ska komma via request iallafall
@@ -117,7 +120,9 @@ app.get('/s', function(reques, responsee){
 });
 
 
+// this is the callback function when coming back from slack login page
 app.get('/callback', function(reques, responsee) {
+  mixpanel.track('login_with_slack');
   var code = reques.query.code;
   apiHandler.getToken(code).then(function(tokenm){
     if(reques.cookies.slackApiToken == null){
@@ -137,6 +142,7 @@ app.get('/callback', function(reques, responsee) {
   });
 });
 
+// remove information from values and only add the important stuff
 var getReformatedValues = function(values){
   var returnArray = [];
   console.log(values.length);

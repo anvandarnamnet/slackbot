@@ -1,10 +1,13 @@
 var mongoose = require("mongoose");
 var Mixpanel = require('mixpanel');
 
-// the shema of the todolists
 var messageSchema = mongoose.Schema({
   token: {type: String, required: true},
   teamInfo: {type: Object, required: true},
+  repeatsWeekly: {type:Boolean, required: true}.
+  repeatsMonthly: {type: Boolean, required:true},
+  repeatsEvery:{type:Number, required:true},
+  weeksUntilNewMessage: {type:Number, required:true},
   hour: {type: String, required: true},
   minute: {type: String, required: true},
   monday: {type: Boolean, required: true},
@@ -23,6 +26,7 @@ var messageSchema = mongoose.Schema({
 var messages = mongoose.model("messages", messageSchema);
 module.exports = messages;
 
+// get all messages for a certain token
 var getMessagesByToken = function(token){
   return new Promise(function(resolve, reject){
     var query = messages.find({token: token});
@@ -39,6 +43,7 @@ var getMessagesByToken = function(token){
 module.exports.getMessagesByToken = getMessagesByToken;
 
 
+// get all the messages for a specific day
 var getMessageByDay = function(day){
 
   return new Promise(function(resolve, reject){
@@ -103,6 +108,7 @@ var getMessageByDay = function(day){
 
 module.exports.getMessageByDay = getMessageByDay;
 
+
 var getMessagesByTime = function(startTime, endTime){
 
   return new Promise(function(resolve,reject){
@@ -125,6 +131,7 @@ var getMessagesByTime = function(startTime, endTime){
 
 module.exports.getMessagesByTime = getMessagesByTime;
 
+// get messages by it's id
 var getMessageById = function(id){
   return new Promise(function(resolve,reject){
     var query = messages.find({
@@ -143,14 +150,18 @@ var getMessageById = function(id){
 
 module.exports.getMessageById = getMessageById;
 
-
-var addNewMessage = function(token, teaminfoInput, users,hour, minute, message, days){
+// add a new message
+var addNewMessage = function(token, teaminfoInput, users,hour, minute, message, days, repeatsWeekly, repeatsMonthly, repeatsEvery, weeksUntilNewMessage){
   mixpanel.track('new_1on1');
 
   return new Promise(function(resolve, reject){
     var newMessage = {
       token: token,
       teamInfo: teaminfoInput,
+      repeatsWeekly:repeatsWeekly,
+      repeatsMonthly: repeatsMonthly,
+      repeatsEvery:repeatsEvery,
+      weeksUntilNewMessage: weeksUntilNewMessage,
       hour: time,
       minute: minute,
       monday: days.monday,

@@ -4,10 +4,12 @@ var apiHandler = require('./ApiHandler');
 var schedule = require('node-schedule');
 var cronJobs = new Map();
 
-var messageUpdated = function(id){
+// method when someone change a message (updates or deletes)
+var messageChanged = function(id){
 
 }
 
+// start the cronjob
 var startCron = function(){
   var now = new Date();
   getMessageByDay(now.getDay())
@@ -24,6 +26,7 @@ var startCron = function(){
   }, null, true, 'Europe/Amsterdam');
 }
 
+// get all the messages for a specifc day and schedule the messages
 var getMessageByDay = function(day){
   jsonHandler.getMessageByDay(day).then(function(messages){
     for(var i = 0; i < messages.length; i++){
@@ -32,28 +35,37 @@ var getMessageByDay = function(day){
   });
 }
 
+
 module.exports.start = startCron;
 
+// schedule a message with a cronjob
 var scheduleMessage = function(message){
-  var cron = new CronJob('00 ' + message.minute + ' ' + message.hour  +  ' * * *', function() {
-    jsonHandler.getMessageById(message.id).then(function(cb){
-      if(compareMessages(cb[0], message)){
-        var users = message.users;
-        for(var i = 0; i < users.length; i++){
-         apiHandler.sendDirectMessage(users[i].id, message.message, message.token).then(function(cb){
-            console.log(cb);
-          });
+  if(checkMessageShouldBeSend(message)){
+    var cron = new CronJob('00 ' + message.minute + ' ' + message.hour  +  ' * * *', function() {
+      jsonHandler.getMessageById(message.id).then(function(cb){
+        if(compareMessages(cb[0], message)){
+          var users = message.users;
+          for(var i = 0; i < users.length; i++){
+           apiHandler.sendDirectMessage(users[i].id, message.message, message.token).then(function(cb){
+              console.log(cb);
+            });
+          }
+        } else{
+          console.log("problem");
         }
-      } else{
-        console.log("problem");
-      }
-      });
-    }, null, true, 'Europe/Amsterdam');
+        });
+      }, null, true, 'Europe/Amsterdam');
 
-    cronJobs.set(message.id, cron);
+      cronJobs.set(message.id, cron);
+  }
 }
 
+// check if message should be send depending on biweekly and so on.
+var checkMessageShouldBeSend = function(message){
 
+}
+
+// compare messages, make sure the message hasn't been changed
 var compareMessages = function(newMsg, oldMsg){
   for(var i = 0; i < newMsg.users.length; i++){
     if(newMsg.users[i].id != oldMsg.users[i].id){
