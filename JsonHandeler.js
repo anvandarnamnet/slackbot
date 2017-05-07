@@ -1,11 +1,10 @@
 var mongoose = require("mongoose");
 var Mixpanel = require('mixpanel');
+var mixpanel = Mixpanel.init('28446a6b8950088604497db036de5bc2');
 
 var messageSchema = mongoose.Schema({
   token: {type: String, required: true},
   teamInfo: {type: Object, required: true},
-  repeatsWeekly: {type:Boolean, required: true}.
-  repeatsMonthly: {type: Boolean, required:true},
   repeatsEvery:{type:Number, required:true},
   weeksUntilNewMessage: {type:Number, required:true},
   hour: {type: String, required: true},
@@ -131,7 +130,6 @@ var getMessagesByTime = function(startTime, endTime){
 
 module.exports.getMessagesByTime = getMessagesByTime;
 
-// get messages by it's id
 var getMessageById = function(id){
   return new Promise(function(resolve,reject){
     var query = messages.find({
@@ -150,19 +148,27 @@ var getMessageById = function(id){
 
 module.exports.getMessageById = getMessageById;
 
+
+var decreaseWeeksUntilMessage = function(id){
+  getMessageById(id).then(function(message){
+    console.log(message);
+
+  });
+}
+
+module.exports.decreaseWeeksUntilMessage = decreaseWeeksUntilMessage;
+
+
 // add a new message
-var addNewMessage = function(token, teaminfoInput, users,hour, minute, message, days, repeatsWeekly, repeatsMonthly, repeatsEvery, weeksUntilNewMessage){
-  mixpanel.track('new_1on1');
+var addNewMessage = function(token, teaminfoInput, users,hour, minute, message, days, repeatsEvery){
 
   return new Promise(function(resolve, reject){
     var newMessage = {
       token: token,
       teamInfo: teaminfoInput,
-      repeatsWeekly:repeatsWeekly,
-      repeatsMonthly: repeatsMonthly,
       repeatsEvery:repeatsEvery,
-      weeksUntilNewMessage: weeksUntilNewMessage,
-      hour: time,
+      weeksUntilNewMessage: 1,
+      hour: hour,
       minute: minute,
       monday: days.monday,
       tuesday:days.tuesday,
@@ -174,13 +180,19 @@ var addNewMessage = function(token, teaminfoInput, users,hour, minute, message, 
       message: message,
       users: users
     }
+    
     var uploadMessages = messages(newMessage);
+
     uploadMessages.save(function(err){
       if(err){
         reject("Something went wrong when adding a new message to the db");
+        mixpanel.track('ERROR_adding_1on1_DB');
+
         console.log("Something went wrong when adding a new message to the db: " + err);
       } else{
         resolve("Message added");
+        mixpanel.track('new_1on1');
+
       }
     });
   });

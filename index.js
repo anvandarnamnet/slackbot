@@ -89,18 +89,21 @@ app.get('/s', function(reques, responsee){
   // teamnamn ska komma via request iallafall
   var token = tokens[0];
   var teaminfo;
+
   // denna ska komma via request
   var message = 'Hello frieeend';
+
   // denna ska kommma via request
   var time = new Date(2017,02,01, 20, 00, 00);
+
   // denna ska komma via post requestet
   var days = {
-    monday: false,
+    monday: true,
     tuesday: true,
-    wednesday: false,
+    wednesday: true,
     thursday: true,
-    friday: false,
-    saturday: false,
+    friday: true,
+    saturday: true,
     sunday: true
   };
   var promises = [];
@@ -109,8 +112,8 @@ app.get('/s', function(reques, responsee){
   promises.push(apiHandler.getUsers(token));
 
   Promise.all(promises).then(values => {
-      console.log(values);
-      jsonHandler.addNewMessage(token, values[0],values[1], time.getHours(), message,days).then(function(back){
+      var rep = 2;
+      jsonHandler.addNewMessage(token, values[0],values[1], time.getHours(), time.getMinutes(), message,days,rep).then(function(back){
         console.log(back);
       });
 
@@ -145,7 +148,6 @@ app.get('/callback', function(reques, responsee) {
 // remove information from values and only add the important stuff
 var getReformatedValues = function(values){
   var returnArray = [];
-  console.log(values.length);
   for(var i = 0; i < values.length; i += 3){
     var teamInfo = values[i].team;
     var incomingUsers = values[i+1];
