@@ -68,10 +68,6 @@ var scheduleMessage = function(message){
 
 // check if message should be send depending on biweekly and so on.
 var checkMessageShouldBeSend = function(message){
-  var schouldBeSend = false;
-
-  // schould we d
-  jsonHandler.decreaseWeeksUntilMessage(message.id);
 
   if(message.weeksUntilNewMessage === 1){
     return true;

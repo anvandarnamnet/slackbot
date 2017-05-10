@@ -148,11 +148,22 @@ var getMessageById = function(id){
 
 module.exports.getMessageById = getMessageById;
 
-
+// EJ TESTAD KANSKE SUGER OCH KANSKE INTE BEHÖVS
 var decreaseWeeksUntilMessage = function(id){
   getMessageById(id).then(function(message){
-    console.log(message);
+    var newValue = 0;
+    if(message.weeksUntilNewMessage == 1){
+      newValue = message.repeatsEvery;
+    } else{
+      newValue = message.weeksUntilNewMessage - 1;
+    }
 
+messages.update(
+    {_id: id},
+    {$set: {'weeksUntilNewMessage': newValue}},
+      function(){
+        console.log("Updated!");
+    });
   });
 }
 
@@ -180,7 +191,7 @@ var addNewMessage = function(token, teaminfoInput, users,hour, minute, message, 
       message: message,
       users: users
     }
-    
+
     var uploadMessages = messages(newMessage);
 
     uploadMessages.save(function(err){

@@ -93,6 +93,7 @@ app.get('/s', function(reques, responsee){
   // denna ska komma via request
   var message = 'Hello frieeend';
 
+  // HÄR SKER TIMEZONEFIX
   // denna ska kommma via request
   var time = new Date(2017,02,01, 20, 00, 00);
 
