@@ -22,7 +22,9 @@ mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
 
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(cookieParser());
 
 app.set('port', (process.env.PORT || 5000));
@@ -38,35 +40,39 @@ var apiHandler = require('./ApiHandler');
 // the landingpage
 app.get('/', function(reques, response) {
   mixpanel.track('home_page_view');
-  if(reques.cookies.slackApiToken){
+  if (reques.cookies.slackApiToken) {
     var token = reques.cookies.slackApiToken.split(',');
     var promises = [];
-    for(var i = 0; i < token.length; i++){
+    for (var i = 0; i < token.length; i++) {
       promises.push(apiHandler.getTeamInfo(token[i]));
       promises.push(apiHandler.getUsers(token[i]));
       promises.push(jsonHandler.getMessagesByToken(token[i]));
     }
 
     Promise.all(promises).then(values => {
-        var val = getReformatedValues(values);
-        for(var i = 0; i < val.length; i++){
-          val[i].token = token[i];
-        }
-        response.render('pages/index', {data: val});
+      var val = getReformatedValues(values);
+      for (var i = 0; i < val.length; i++) {
+        val[i].token = token[i];
+      }
+      response.render('pages/index', {
+        data: val
+      });
     });
-  } else{
-    response.render('pages/index', {data: []});
+  } else {
+    response.render('pages/index', {
+      data: []
+    });
   }
 });
 
 // small split function
-var getApiTokenFromCookie = function(cookie){
+var getApiTokenFromCookie = function(cookie) {
   return cookie.split(',');
 }
 
 
 // route for managerportal
-app.get('/team', function(reques,responsee){
+app.get('/team', function(reques, responsee) {
   var teamToken = reques.query.token;
   var promises = [];
 
@@ -75,16 +81,18 @@ app.get('/team', function(reques,responsee){
   promises.push(jsonHandler.getMessagesByToken(teamToken));
 
   Promise.all(promises).then(values => {
-      var val = getReformatedValues(values)[0];
-      console.log(val);
-      val.token = teamToken;
-      responsee.render('pages/team', {data: val});
+    var val = getReformatedValues(values)[0];
+    console.log(val);
+    val.token = teamToken;
+    responsee.render('pages/team', {
+      data: val
+    });
   });
 
 });
 
 // test route to add messagesb
-app.get('/s', function(reques, responsee){
+app.get('/s', function(reques, responsee) {
   var tokens = getApiTokenFromCookie(reques.cookies.slackApiToken)
   // teamnamn ska komma via request iallafall
   var token = tokens[0];
@@ -95,7 +103,7 @@ app.get('/s', function(reques, responsee){
 
   // HÄR SKER TIMEZONEFIX
   // denna ska kommma via request
-  var time = new Date(2017,02,01, 20, 00, 00);
+  var time = new Date(2017, 02, 01, 16, 00, 00);
 
   // denna ska komma via post requestet
   var days = {
@@ -113,10 +121,10 @@ app.get('/s', function(reques, responsee){
   promises.push(apiHandler.getUsers(token));
 
   Promise.all(promises).then(values => {
-      var rep = 2;
-      jsonHandler.addNewMessage(token, values[0],values[1], time.getHours(), time.getMinutes(), message,days,rep).then(function(back){
-        console.log(back);
-      });
+    var rep = 2;
+    jsonHandler.addNewMessage(token, values[0], values[1], time.getHours(), time.getMinutes(), message, days, rep).then(function(back) {
+      console.log(back);
+    });
 
   });
 
@@ -128,47 +136,56 @@ app.get('/s', function(reques, responsee){
 app.get('/callback', function(reques, responsee) {
   mixpanel.track('login_with_slack');
   var code = reques.query.code;
-  apiHandler.getToken(code).then(function(tokenm){
-    if(reques.cookies.slackApiToken == null){
-      responsee.cookie(slackApiTokenString, tokenm, { maxAge: 90000000000, httpOnly: true }).redirect('/');
-    } else{
+  apiHandler.getToken(code).then(function(tokenm) {
+    if (reques.cookies.slackApiToken == null) {
+      responsee.cookie(slackApiTokenString, tokenm, {
+        maxAge: 90000000000,
+        httpOnly: true
+      }).redirect('/');
+    } else {
       var oldToken = reques.cookies.slackApiToken;
       var tokenArr = oldToken.split(',');
-      for(var i = 0; i < tokenArr.length; i++){
-        if(tokenArr[i] === tokenm){
-          responsee.cookie(slackApiTokenString, oldToken,{ maxAge: 90000000000, httpOnly: true }).redirect('/');
+      for (var i = 0; i < tokenArr.length; i++) {
+        if (tokenArr[i] === tokenm) {
+          responsee.cookie(slackApiTokenString, oldToken, {
+            maxAge: 90000000000,
+            httpOnly: true
+          }).redirect('/');
           return;
         }
       }
       oldToken = oldToken + ',' + tokenm;
-      responsee.cookie(slackApiTokenString, oldToken,{ maxAge: 90000000000, httpOnly: true }).redirect('/');
+      responsee.cookie(slackApiTokenString, oldToken, {
+        maxAge: 90000000000,
+        httpOnly: true
+      }).redirect('/');
     }
   });
 });
 
 // remove information from values and only add the important stuff
-var getReformatedValues = function(values){
+var getReformatedValues = function(values) {
   var returnArray = [];
-  for(var i = 0; i < values.length; i += 3){
+  for (var i = 0; i < values.length; i += 3) {
     var teamInfo = values[i].team;
-    var incomingUsers = values[i+1];
-    var messages = values[i+2];
+    var incomingUsers = values[i + 1];
+    var messages = values[i + 2];
     var users = [];
 
-    for(var i = 0; i < incomingUsers.length; i++){
-        var user = {
-            id: incomingUsers[i].id,
-            name: incomingUsers[i].real_name,
-            user_name: incomingUsers[i].name,
-            time_zone: incomingUsers[i].tz,
-            time_zone_offset: incomingUsers[i].tz_offset,
-            is_bot: incomingUsers[i].is_bot,
-            image:incomingUsers[i].profile.image_48
-        }
+    for (var i = 0; i < incomingUsers.length; i++) {
+      var user = {
+        id: incomingUsers[i].id,
+        name: incomingUsers[i].real_name,
+        user_name: incomingUsers[i].name,
+        time_zone: incomingUsers[i].tz,
+        time_zone_offset: incomingUsers[i].tz_offset,
+        is_bot: incomingUsers[i].is_bot,
+        image: incomingUsers[i].profile.image_48
+      }
 
-        users.push(user);
+      users.push(user);
     }
-      var obj = {
+    var obj = {
       team: teamInfo,
       users: users,
       messages: messages
