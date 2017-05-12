@@ -6,7 +6,7 @@ var cronJobs = new Map();
 
 // method when someone change a message (updates or deletes)
 var messageChanged = function(id) {
-  
+
 }
 
 // start the cronjob
@@ -115,6 +115,7 @@ var compareMessages = function(newMsg, oldMsg) {
 
   return true;
 }
+
 
 var fixWeekNumberMethod = function() {
     Date.prototype.getWeek = function() {
