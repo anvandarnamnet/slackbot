@@ -207,6 +207,7 @@ var messageHasBeenSend = function(message, weekSend) {
     function(err, document) {
       console.log(err);
     });
+
 }
 
 module.exports.messageHasBeenSend = messageHasBeenSend;

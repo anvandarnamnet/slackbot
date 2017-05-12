@@ -73,6 +73,7 @@ var scheduleMessage = function(message) {
 }
 
 // check if message should be send depending on biweekly and so on.
+
 var checkMessageShouldBeSend = function(message) {
   var now = new Date();
   var week = now.getWeek();
@@ -86,6 +87,7 @@ var checkMessageShouldBeSend = function(message) {
   }
   if (week < message.lastMessageSendWeek) {
     var numberOfWeeks = 52 - message.lastMessageSendWeek + week;
+
 
     if (numberOfWeeks == repeatsEvery) {
       return true;
