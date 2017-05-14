@@ -125,7 +125,6 @@ app.get('/s', function(reques, responsee) {
     jsonHandler.addNewMessage(token, values[0], values[1], time.getHours(), time.getMinutes(), message, days, rep).then(function(back) {
       console.log(back);
     });
-
   });
 
   responsee.redirect('/');
@@ -195,8 +194,6 @@ var getReformatedValues = function(values) {
   }
   return returnArray;
 }
-
-
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

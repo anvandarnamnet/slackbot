@@ -40,6 +40,23 @@ var getTeamInfo = function(incomingToken){
 
 module.exports.getTeamInfo = getTeamInfo;
 
+var getUserInfo = function(token){
+  return new Promise(function(resolve,reject){
+    var getUserString = 'https://slack.com/api/users.profile.get?token=' +token;
+    request(getUserString, function(error,response, body){
+      if(error != null){
+        reject(error);
+      }
+
+      var jsonBody = JSON.parse(body);
+      resolve(jsonBody);
+    });
+  });
+}
+
+module.exports.getUserInfo = getUserInfo;
+
+
 // send a direct message to somone in the slack channel
 // @channel - the channel id for the direct message
 // @text - the text to send

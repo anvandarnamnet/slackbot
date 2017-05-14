@@ -18,8 +18,8 @@ var startCron = function() {
     for (var cronJob of cronJobs.values()) {
       cronJob.stop();
     }
-    cronJobs = new Map();
 
+    cronJobs = new Map();
     var now = new Date();
     getMessageByDay(now.getDay())
 
