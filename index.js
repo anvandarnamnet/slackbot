@@ -72,9 +72,9 @@ var getApiTokenFromCookie = function(cookie) {
 }
 
 app.post('/slackverification', function(request, response){
-  let challange = request.body;
-  console.log(challange)
-  response.send(challange)
+  let challenge = request.body.challenge;
+  console.log(challenge)
+  response.send(challenge)
 });
 
 // route for managerportal
