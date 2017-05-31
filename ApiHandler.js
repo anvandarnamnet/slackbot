@@ -40,7 +40,8 @@ var getTeamInfo = function(incomingToken){
 
 module.exports.getTeamInfo = getTeamInfo;
 
-var getUserInfo = function(token){
+// get information about the manager
+var getManagerInfo = function(token){
   return new Promise(function(resolve,reject){
     var getUserString = 'https://slack.com/api/users.profile.get?token=' +token;
     request(getUserString, function(error,response, body){
@@ -54,7 +55,7 @@ var getUserInfo = function(token){
   });
 }
 
-module.exports.getUserInfo = getUserInfo;
+module.exports.getManagerInfo = getManagerInfo;
 
 
 // send a direct message to somone in the slack channel

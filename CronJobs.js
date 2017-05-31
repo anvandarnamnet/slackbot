@@ -23,7 +23,7 @@ var startCron = function() {
     var now = new Date();
     getMessageByDay(now.getDay())
 
-  }, null, true, 'Europe/Amsterdam');
+  }, null, true, 'GMT0');
 }
 
 // get all the messages for a specifc day and schedule the messages
@@ -65,7 +65,7 @@ var scheduleMessage = function(message) {
           });
         }
       });
-    }, null, true, 'Europe/Amsterdam');
+    }, null, true, 'GMT0');
     cronJobs.set(message.id, cron);
   } else{
     console.log("det händer inte");
