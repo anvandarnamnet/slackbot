@@ -71,7 +71,7 @@ var getApiTokenFromCookie = function(cookie) {
 }
 
 app.post('/slackverification', function(request, response){
-  let challenge = request.body.challange;
+  let challenge = request.body.challenge;
   console.log(challenge)
   response.send(challenge)
 });
