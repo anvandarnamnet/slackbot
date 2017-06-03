@@ -22,9 +22,8 @@ mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
 
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.set('port', (process.env.PORT || 5000));
@@ -72,9 +71,9 @@ var getApiTokenFromCookie = function(cookie) {
 }
 
 app.post('/slackverification', function(request, response){
-  let challenge = request.body.challenge;
+  let challenge = request;
   console.log(challenge)
-  response.send(challenge)
+  response.send("yoo2")
 });
 
 // route for managerportal
