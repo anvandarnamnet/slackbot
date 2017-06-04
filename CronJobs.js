@@ -12,7 +12,7 @@ var messageChanged = function(id) {
 // start the cronjob
 var startCron = function() {
   var now = new Date();
-  getMessageByDay(now.getDay())
+  scheduleMessages(now.getDay())
 
   new CronJob('00 00 00 * * *', function() {
     for (var cronJob of cronJobs.values()) {
@@ -21,13 +21,13 @@ var startCron = function() {
 
     cronJobs = new Map();
     var now = new Date();
-    getMessageByDay(now.getDay())
+    scheduleMessages(now.getDay())
 
   }, null, true, 'GMT0');
 }
 
 // get all the messages for a specifc day and schedule the messages
-var getMessageByDay = function(day) {
+var scheduleMessages = function(day) {
   jsonHandler.getMessageByDay(day).then(function(messages) {
     for (var i = 0; i < messages.length; i++) {
       scheduleMessage(messages[i]);
@@ -45,7 +45,6 @@ var scheduleMessage = function(message) {
 
   //KP DISCUSS!!!(SAMMA MEDDELANDE ELLER EJ?)
   if (checkMessageShouldBeSend(message)) {
-    console.log("det händer!");
     var cron = new CronJob('00 ' + message.minute + ' ' + message.hour + ' * * *', function() {
       // get the newest version of the message object
       jsonHandler.getMessageById(message.id).then(function(cb) {

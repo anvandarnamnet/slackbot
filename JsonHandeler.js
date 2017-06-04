@@ -55,10 +55,9 @@ var messageSchema = mongoose.Schema({
     type: Boolean,
     required: true
   },
-  message: {
-    type: String,
-    required: true
-  },
+  message:  [{
+    type: String
+}],
   users: {
     type: Object,
     required: true
@@ -212,43 +211,50 @@ var messageHasBeenSend = function(message, weekSend) {
 
 module.exports.messageHasBeenSend = messageHasBeenSend;
 
-
+queueHandler = require('./DMMessageHandeler');
 // add a new message
 var addNewMessage = function(token, teaminfoInput, users, hour, minute, message, days, repeatsEvery) {
 
-  return new Promise(function(resolve, reject) {
-    var newMessage = {
-      token: token,
-      teamInfo: teaminfoInput,
-      repeatsEvery: repeatsEvery,
-      hour: hour,
-      minute: minute,
-      monday: days.monday,
-      tuesday: days.tuesday,
-      wednesday: days.wednesday,
-      thursday: days.thursday,
-      friday: days.friday,
-      saturday: days.saturday,
-      sunday: days.sunday,
-      message: message,
-      users: users
-    }
-
-    var uploadMessages = messages(newMessage);
-
-    uploadMessages.save(function(err) {
-      if (err) {
-        reject("Something went wrong when adding a new message to the db");
-        mixpanel.track('ERROR_adding_1on1_DB');
-
-        console.log("Something went wrong when adding a new message to the db: " + err);
-      } else {
-        resolve("Message added");
-        mixpanel.track('new_1on1');
-
+    return new Promise(function(resolve, reject) {
+      for(var i = 0; i < users.length; i++){
+        if(!users[i].is_bot && users[i].id !== 'USLACKBOT'){
+          queueHandler.addNewQueueSchema(teaminfoInput.team.id, users[i].id);
+        }
       }
+      console.log("yea");
+      console.log(users)
+        var newMessage = {
+            token: token,
+            teamInfo: teaminfoInput,
+            repeatsEvery: repeatsEvery,
+            hour: hour,
+            minute: minute,
+            monday: days.monday,
+            tuesday: days.tuesday,
+            wednesday: days.wednesday,
+            thursday: days.thursday,
+            friday: days.friday,
+            saturday: days.saturday,
+            sunday: days.sunday,
+            message: message,
+            users: users
+        }
+
+        var uploadMessages = messages(newMessage);
+
+        uploadMessages.save(function(err) {
+            if (err) {
+                reject("Something went wrong when adding a new message to the db");
+                mixpanel.track('ERROR_adding_1on1_DB');
+
+                console.log("Something went wrong when adding a new message to the db: " + err);
+            } else {
+                resolve("Message added");
+                mixpanel.track('new_1on1');
+
+            }
+        });
     });
-  });
 }
 
 module.exports.addNewMessage = addNewMessage;

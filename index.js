@@ -85,7 +85,6 @@ app.get('/team', function(reques, responsee) {
   promises.push(apiHandler.getUsers(teamToken));
   promises.push(jsonHandler.getMessagesByToken(teamToken));
 
-
   Promise.all(promises).then(values => {
     var val = getReformatedValues(values)[0];
     console.log(val);
@@ -94,7 +93,6 @@ app.get('/team', function(reques, responsee) {
       data: val
     });
   });
-
 });
 
 // test route to add messagesb
@@ -105,7 +103,7 @@ app.get('/s', function(reques, responsee) {
   var teaminfo;
 
   // denna ska komma via request
-  var message = 'Hello yo';
+  var message = ['fet','yoo','yea'];
 
   //timezone ska komma via request
   var tz_offset = -7200;
@@ -136,9 +134,9 @@ app.get('/s', function(reques, responsee) {
 
   Promise.all(promises).then(values => {
     var rep = 2;
-    //jsonHandler.addNewMessage(token, values[0], values[1], time.getHours(), time.getMinutes(), message, days, rep).then(function(back) {
-      //console.log(back);
-    //});
+    jsonHandler.addNewMessage(token, values[0], values[1], time.getHours(), time.getMinutes(), message, days, rep).then(function(back) {
+      console.log(back);
+    });
   });
 
   responsee.redirect('/');
@@ -166,7 +164,7 @@ let correctTimeZone = function(days, time, tz_off){
   }
   let tommorrow = new Date()
   tommorrow.setDate(tommorrow.getDate() + 1);
-  if(time.getDate() == tommorrow.getDate()){
+  if(time.getDate() === tommorrow.getDate()){
     let temp = days.monday;
     days.monday = days.tuesday;
     days.tuesday = days.wednesday;
@@ -188,7 +186,7 @@ app.get('/callback', function(reques, responsee) {
   mixpanel.track('login_with_slack');
   var code = reques.query.code;
   apiHandler.getToken(code).then(function(tokenm) {
-    if (reques.cookies.slackApiToken == null) {
+    if (reques.cookies.slackApiToken === null) {
       responsee.cookie(slackApiTokenString, tokenm, {
         maxAge: 90000000000,
         httpOnly: true

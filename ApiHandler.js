@@ -84,7 +84,7 @@ var getIM = function(tokenm){
   return new Promise(function(resolve, reject){
     var groupString = 'https://slack.com/api/im.list?token=' + tokenm;
     request(groupString, function(error, response, body){
-      if(error != null){
+      if(error !== null){
         reject(error);
       }
       var jsonBody = JSON.parse(body);
