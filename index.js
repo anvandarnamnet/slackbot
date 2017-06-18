@@ -7,7 +7,7 @@ let schedule = require('node-schedule');
 let jsonHandler = require('./JsonHandeler')
 let mongoose = require('mongoose');
 let cronJob = require('./CronJobs');
-
+let messageQueue = require('./DMMessageHandeler');
 // grab the Mixpanel factory
 let Mixpanel = require('mixpanel');
 
@@ -39,6 +39,9 @@ var apiHandler = require('./ApiHandler');
 // the landingpage
 app.get('/', function(reques, response) {
   mixpanel.track('home_page_view');
+  //team id: T47DFDA9E
+    //user id: U4EE012KZ
+
   if (reques.cookies.slackApiToken) {
     var token = reques.cookies.slackApiToken.split(',');
     var promises = [];

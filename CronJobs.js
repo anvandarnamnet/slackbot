@@ -3,6 +3,7 @@ var jsonHandler = require('./JsonHandeler');
 var apiHandler = require('./ApiHandler');
 var schedule = require('node-schedule');
 var cronJobs = new Map();
+let messageQueue = require('./DMMessageHandeler');
 
 // method when someone change a message (updates or deletes)
 var messageChanged = function(id) {
@@ -59,9 +60,16 @@ var scheduleMessage = function(message) {
         var users = updatedMessage.users;
         jsonHandler.messageHasBeenSend(updatedMessage, now.getWeek());
         for (var i = 0; i < users.length; i++) {
-          apiHandler.sendDirectMessage(users[i].id, updatedMessage.message, updatedMessage.token).then(function(cb) {
-            console.log("Direct message has been send");
-          });
+
+            messageQueue.getMessageQueue(updatedMessage.teamInfo.team.id, users[i].id).then(function(queue){
+              if(queue.messageQueue.length === 0){
+                  apiHandler.sendDirectMessage(users[i].id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
+                  updatedMessage.message.slice(0,1);
+                  messageQueue.addMessage(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.message);
+              }else{
+                  messageQueue.addMessage(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.message);
+              }
+            });
         }
       });
     }, null, true, 'GMT0');

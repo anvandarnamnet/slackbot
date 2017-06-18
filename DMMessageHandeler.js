@@ -21,7 +21,7 @@ var messageQueue = mongoose.model("messageQueue", queueSchema);
 module.exports = messageQueue;
 
 
-var addNewQueueSchema = function(teamId, userId) {
+var addMessage = function(teamId, userId, messages) {
     console.log(teamId + ' ' + userId)
     return new Promise(function (resolve, reject) {
             getMessagesQueue(teamId, userId).then(function (queues) {
@@ -29,7 +29,7 @@ var addNewQueueSchema = function(teamId, userId) {
                     var newMessageQueue = {
                         teamId: teamId,
                         userId: userId,
-                        messageQueue:[]
+                        messageQueue:messages
                     }
 
                     var uploadMessageQueue = messageQueue(newMessageQueue);
@@ -44,7 +44,8 @@ var addNewQueueSchema = function(teamId, userId) {
                         }
                     });
                 } else{
-                    console.log("Queue already exists")
+                     addMessagesToQueue(messages, teamId,userId);
+                     resolve()
                 }
                 })
             }
@@ -54,23 +55,69 @@ var addNewQueueSchema = function(teamId, userId) {
 
 var addMessagesToQueue = function(messages, teamId, userId){
     getMessagesQueue(teamId,userId).then(function(queue){
-       var existingMessages = queue.messageQueue;
+       var existingMessages = queue[0].messageQueue;
        for(var i = 0; i < messages.length; i++){
            exists = false;
+           if(existingMessages === null){
+               existingMessages = []
+               console.log('ad');
+           }
            for(var j = 0; j < existingMessages.length; j++){
-               if(existingMessages[j] === messages){
+               if(existingMessages[j] === messages[i]){
                    exists = true;
                    break;
                }
            }
            if(!exists){
-               existingMessages.append(messages[i]);
+               existingMessages.push(messages[i]);
            }
        }
+
+       updateObject(teamId,userId, existingMessages);
+
+
+    });
+};
+
+var updateObject = function (teamId, userId, messages){
+    var query = {
+        'teamId':teamId,
+        'userId':userId
+    };
+
+    var data = {
+        'teamId':teamId,
+        'userId':userId,
+        'messageQueue':messages
+    };
+
+    // fixa lite error fix fixing
+    messageQueue.findOneAndUpdate(query, data, {upsert:true}, function(err, doc){
+
     });
 }
 
-module.exports.addMessagesToQueue = addMessagesToQueue;
+module.exports.addMessage = addMessage;
+
+
+var popMessage = function(teamId, userId){
+    return new Promise(function(resolve, reject) {
+        getMessagesQueue(teamId,userId).then(function(queue) {
+            var message = ""
+            if(queue[0].messageQueue.length === 0){
+                reject("no message in queue");
+                return;
+            }else{
+                message = queue[0].messageQueue[0];
+            }
+            queue[0].messageQueue.splice(0,1);
+            updateObject(teamId, userId, queue[0].messageQueue)
+            resolve(message);
+        });
+    });
+};
+
+module.exports.popMessage = popMessage;
 
 var getMessagesQueue = function(teamId, userId){
     return new Promise(function(resolve, reject) {
@@ -89,4 +136,4 @@ var getMessagesQueue = function(teamId, userId){
     });
 }
 
-module.exports.addNewQueueSchema = addNewQueueSchema;
+module.exports.getMessageQueue = getMessagesQueue;
