@@ -127,8 +127,8 @@ app.get('/s', function(reques, responsee) {
   // HÄR SKER TIMEZONEFIX
   // denna ska kommma via request
   var time = new Date()
-  time.setHours(19)
-    time.setMinutes(51)
+  time.setHours(20)
+    time.setMinutes(06)
 
   // denna ska komma via post requestet
   var days = {
