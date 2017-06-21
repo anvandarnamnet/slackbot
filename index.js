@@ -84,9 +84,9 @@ app.post('/slackverification', function(request, response){
   var teamId = request.body.team_id;
   var userId = request.body.event.user;
   var token = request.body.token;
-  messageQueue.popMessage(teamId, userId).then(function(message){
+  messageQueue.popMessage(teamId, userId).then(function(messageObj){
     console.log(message)
-    apiHandler.sendDirectMessage(userId, message, token).then(function(body){
+    apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
       console.log(body)
     })
   });
@@ -128,14 +128,14 @@ app.get('/s', function(reques, responsee) {
   // HÄR SKER TIMEZONEFIX
   // denna ska kommma via request
   var time = new Date()
-  time.setHours(16)
-    time.setMinutes(50)
+  time.setHours(18)
+    time.setMinutes(57)
 
   // denna ska komma via post requestet
   var days = {
     monday: false,
     tuesday: true,
-    wednesday: false,
+    wednesday: true,
     thursday: true,
     friday: false,
     saturday: true,

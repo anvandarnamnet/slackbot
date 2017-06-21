@@ -13,6 +13,10 @@ var queueSchema = mongoose.Schema({
         type: [{
             type: String
         }]
+    },
+    token:{
+      type:String,
+      required:true
     }
 
 })
@@ -21,7 +25,7 @@ var messageQueue = mongoose.model("messageQueue", queueSchema);
 module.exports = messageQueue;
 
 
-var addMessage = function(teamId, userId, messages) {
+var addMessage = function(teamId, userId, messages, token) {
     console.log(teamId + ' ' + userId)
     return new Promise(function (resolve, reject) {
             getMessagesQueue(teamId, userId).then(function (queues) {
@@ -29,7 +33,8 @@ var addMessage = function(teamId, userId, messages) {
                     var newMessageQueue = {
                         teamId: teamId,
                         userId: userId,
-                        messageQueue:messages
+                        messageQueue:messages,
+                        token:token
                     }
 
                     var uploadMessageQueue = messageQueue(newMessageQueue);
@@ -112,7 +117,7 @@ var popMessage = function(teamId, userId){
             }
             queue[0].messageQueue.splice(0,1);
             updateObject(teamId, userId, queue[0].messageQueue)
-            resolve(message);
+            resolve({message:message, token: queue[0].token});
         });
     });
 };

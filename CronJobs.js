@@ -44,7 +44,6 @@ var scheduleMessage = function(message) {
   // just add a method to the Date object; //you dont have to care about that :)
   fixWeekNumberMethod();
 
-  //KP DISCUSS!!!(SAMMA MEDDELANDE ELLER EJ?)
   if (checkMessageShouldBeSend(message)) {
     var cron = new CronJob('00 ' + message.minute + ' ' + message.hour + ' * * *', function() {
       // get the newest version of the message object
@@ -65,9 +64,9 @@ var scheduleMessage = function(message) {
               if(queue.messageQueue.length === 0){
                   apiHandler.sendDirectMessage(users[i].id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
                   updatedMessage.message.slice(0,1);
-                  messageQueue.addMessage(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.message);
+                  messageQueue.addMessage(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.message, updatedMessage.token);
               }else{
-                  messageQueue.addMessage(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.message);
+                  messageQueue.addMessage(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.message, updatedMessage.token);
               }
             });
         }
