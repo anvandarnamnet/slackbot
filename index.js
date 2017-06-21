@@ -123,13 +123,13 @@ app.get('/s', function(reques, responsee) {
   var message = ['fet','yoo','yea'];
 
   //timezone ska komma via request
-  var tz_offset = -7200;
+  var tz_offset = 7200;
 
   // HÄR SKER TIMEZONEFIX
   // denna ska kommma via request
   var time = new Date()
-  time.setHours(18)
-    time.setMinutes(57)
+  time.setHours(19)
+    time.setMinutes(51)
 
   // denna ska komma via post requestet
   var days = {

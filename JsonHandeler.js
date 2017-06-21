@@ -204,7 +204,6 @@ var messageHasBeenSend = function(message, weekSend) {
       "lastMessageSendWeek": weekSend
     },
     function(err, document) {
-      console.log(err);
     });
 
 }
@@ -218,7 +217,7 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
     return new Promise(function(resolve, reject) {
       for(var i = 0; i < users.length; i++){
         if(!users[i].is_bot && users[i].id !== 'USLACKBOT'){
-          queueHandler.addNewQueueSchema(teaminfoInput.team.id, users[i].id);
+          queueHandler.addMessage(teaminfoInput.team.id, users[i].id, [], token);
         }
       }
       console.log("yea");

@@ -59,19 +59,26 @@ var scheduleMessage = function(message) {
         var users = updatedMessage.users;
         jsonHandler.messageHasBeenSend(updatedMessage, now.getWeek());
         for (var i = 0; i < users.length; i++) {
+           var message = function(id){
+             messageQueue.getMessageQueue(updatedMessage.teamInfo.team.id, users[i].id).then(function(queue){
+                 console.log(id)
+                 if(id !== 'USLACKBOT'){
+                   if(queue[0].messageQueue.length === 0){
+                   apiHandler.sendDirectMessage(id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
+                   updatedMessage.message.slice(0,1);
+                   messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, updatedMessage.message, updatedMessage.token);
+                 }
+                 else{
+                     messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, updatedMessage.message, updatedMessage.token);
+               }
+               }
+             });
+           } (users[i].id)
 
-            messageQueue.getMessageQueue(updatedMessage.teamInfo.team.id, users[i].id).then(function(queue){
-              if(queue.messageQueue.length === 0){
-                  apiHandler.sendDirectMessage(users[i].id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
-                  updatedMessage.message.slice(0,1);
-                  messageQueue.addMessage(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.message, updatedMessage.token);
-              }else{
-                  messageQueue.addMessage(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.message, updatedMessage.token);
-              }
-            });
         }
       });
     }, null, true, 'GMT0');
+    console.log('det händer!')
     cronJobs.set(message.id, cron);
   } else{
     console.log("det händer inte");
