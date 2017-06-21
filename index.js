@@ -81,8 +81,8 @@ var getApiTokenFromCookie = function(cookie) {
 app.post('/slackverification', function(request, response){
   let challenge = request.body.challenge;
   console.log(request.body)
-  var teamId = challenge.team_id;
-  var userId = challenge.event.user;
+  var teamId = request.body.team_id;
+  var userId = request.body.event.user;
   messageQueue.popMessage(teamId, userId).then(function(message){
     console.log(message)
   });
