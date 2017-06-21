@@ -83,6 +83,7 @@ app.post('/slackverification', function(request, response){
   console.log(request.body)
   var teamId = request.body.team_id;
   var userId = request.body.event.user;
+  console.log(messageQueue)
   messageQueue.popMessage(teamId, userId).then(function(message){
     console.log(message)
   });
