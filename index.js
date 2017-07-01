@@ -84,11 +84,9 @@ app.post('/slackverification', function(request, response){
   var userId = request.body.event.user;
   var token = request.body.token;
   messageQueue.popMessage(teamId, userId).then(function(messageObj){
-    console.log("messageObj")
-    console.log(messageObj)
+
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
-      console.log("body")
-      console.log(body)
+
     })
   });
   response.send(challenge)
@@ -121,7 +119,7 @@ app.get('/s', function(reques, responsee) {
   var teaminfo;
 
   // denna ska komma via request
-  var message = ['How are you','Whats going great','What could be better?'];
+  var message = ['How are you','Whats going great','What could be better'];
 
   //timezone ska komma via request
   var tz_offset = 7200;
@@ -129,8 +127,8 @@ app.get('/s', function(reques, responsee) {
   // HÄR SKER TIMEZONEFIX
   // denna ska kommma via request
   var time = new Date()
-  time.setHours(13)
-    time.setMinutes(39)
+  time.setHours(14)
+    time.setMinutes(16)
 
   // denna ska komma via post requestet
   var days = {
@@ -193,29 +191,22 @@ let correctTimeZone = function(days, time, tz_off){
     days.saturday = days.sunday;
     days.sunday = temp;
   }
-  console.log(days);
-  console.log(yesterday.getDate());
-  console.log(time.toISOString());
 
 }
 
 
 // this is the callback function when coming back from slack login page
 app.get('/callback', function(reques, responsee) {
-  console.log("callback")
   mixpanel.track('login_with_slack');
   var code = reques.query.code;
   apiHandler.getToken(code).then(function(tokenm) {
-    console.log("ye " + tokenm)
     console.log(reques.cookies.slackApiToken)
     if (reques.cookies.slackApiToken == undefined) {
-      console.log("here")
       responsee.cookie(slackApiTokenString, tokenm, {
         maxAge: 90000000000,
         httpOnly: true
       }).redirect('/');
     } else {
-      console.log("NOOO")
       var oldToken = reques.cookies.slackApiToken;
       var tokenArr = oldToken.split(',');
       for (var i = 0; i < tokenArr.length; i++) {

@@ -61,15 +61,17 @@ var scheduleMessage = function(message) {
         for (var i = 0; i < users.length; i++) {
            var message = function(id){
              messageQueue.getMessageQueue(updatedMessage.teamInfo.team.id, users[i].id).then(function(queue){
-               console.log("queue")
-                 console.log(queue)
                  if(id !== 'USLACKBOT'){
                    if(queue[0].messageQueue.length === 0){
                    apiHandler.sendDirectMessage(id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
-                   updatedMessage.message.shift();
-                   console.log("SENDING")
-                   console.log(updatedMessage.message)
-                   messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, updatedMessage.message, updatedMessage.token);
+                   var newMessages = []
+                   if(updatedMessage.message.length > 1){
+                     for(var i = 1; i < updatedMessage.message.length; i++){
+                       newMessages.push(updatedMessage.message[i])
+                     }
+
+                   }
+                   messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, newMessages, updatedMessage.token);
                  }
                  else{
                      messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, updatedMessage.message, updatedMessage.token);
