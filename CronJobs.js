@@ -66,6 +66,8 @@ var scheduleMessage = function(message) {
                    if(queue[0].messageQueue.length === 0){
                    apiHandler.sendDirectMessage(id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
                    updatedMessage.message.slice(0,1);
+                   console.log("SENDING")
+                   console.log(updatedMessage.message)
                    messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, updatedMessage.message, updatedMessage.token);
                  }
                  else{

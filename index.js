@@ -43,19 +43,19 @@ app.get('/', function(reques, response) {
     //user id: U4EE012KZ
 
   if (reques.cookies.slackApiToken) {
-    var token = reques.cookies.slackApiToken.split(',');
+    var token = reques.cookies.slackApiToken;
     var promises = [];
-    for (var i = 0; i < token.length; i++) {
-      promises.push(apiHandler.getTeamInfo(token[i]));
-      promises.push(apiHandler.getUsers(token[i]));
-      promises.push(jsonHandler.getMessagesByToken(token[i]));
-      promises.push(apiHandler.getManagerInfo(token[i]));
-    }
+
+      promises.push(apiHandler.getTeamInfo(token));
+      promises.push(apiHandler.getUsers(token));
+      promises.push(jsonHandler.getMessagesByToken(token));
+      promises.push(apiHandler.getManagerInfo(token));
+
 
     Promise.all(promises).then(values => {
       var val = getReformatedValues(values);
       for (var i = 0; i < val.length; i++) {
-        val[i].token = token[i];
+        val[i].token = token;
       }
       response.render('pages/index', {
         data: val
@@ -85,8 +85,10 @@ app.post('/slackverification', function(request, response){
   var userId = request.body.event.user;
   var token = request.body.token;
   messageQueue.popMessage(teamId, userId).then(function(messageObj){
+    console.log("messageObj")
+    console.log(messageObj)
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
-      console.log(body)
+      //console.log(body)
     })
   });
   response.send(challenge)
@@ -119,7 +121,7 @@ app.get('/s', function(reques, responsee) {
   var teaminfo;
 
   // denna ska komma via request
-  var message = ['fet','yoo','yea'];
+  var message = ['How are you','Whats going great','What could be better?'];
 
   //timezone ska komma via request
   var tz_offset = 7200;
@@ -127,18 +129,18 @@ app.get('/s', function(reques, responsee) {
   // HÄR SKER TIMEZONEFIX
   // denna ska kommma via request
   var time = new Date()
-  time.setHours(20)
-    time.setMinutes(06)
+  time.setHours(12)
+    time.setMinutes(44)
 
   // denna ska komma via post requestet
   var days = {
-    monday: false,
+    monday: true,
     tuesday: true,
     wednesday: true,
     thursday: true,
-    friday: false,
+    friday: true,
     saturday: true,
-    sunday: false
+    sunday: true
   };
 
   let scheduleTimes = correctTimeZone(days, time, tz_offset)
@@ -149,13 +151,14 @@ app.get('/s', function(reques, responsee) {
   promises.push(apiHandler.getUsers(token));
 
   Promise.all(promises).then(values => {
-    var rep = 2;
+    var rep = 1;
     jsonHandler.addNewMessage(token, values[0], values[1], time.getHours(), time.getMinutes(), message, days, rep).then(function(back) {
       console.log(back);
+      responsee.send({});
+
     });
   });
 
-  responsee.redirect('/');
 });
 
 let correctTimeZone = function(days, time, tz_off){
@@ -199,15 +202,20 @@ let correctTimeZone = function(days, time, tz_off){
 
 // this is the callback function when coming back from slack login page
 app.get('/callback', function(reques, responsee) {
+  console.log("callback")
   mixpanel.track('login_with_slack');
   var code = reques.query.code;
   apiHandler.getToken(code).then(function(tokenm) {
-    if (reques.cookies.slackApiToken === null) {
+    console.log("ye " + tokenm)
+    console.log(reques.cookies.slackApiToken)
+    if (reques.cookies.slackApiToken == undefined) {
+      console.log("here")
       responsee.cookie(slackApiTokenString, tokenm, {
         maxAge: 90000000000,
         httpOnly: true
       }).redirect('/');
     } else {
+      console.log("NOOO")
       var oldToken = reques.cookies.slackApiToken;
       var tokenArr = oldToken.split(',');
       for (var i = 0; i < tokenArr.length; i++) {

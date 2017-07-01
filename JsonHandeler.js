@@ -220,8 +220,7 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
           queueHandler.addMessage(teaminfoInput.team.id, users[i].id, [], token);
         }
       }
-      console.log("yea");
-      console.log(users)
+
         var newMessage = {
             token: token,
             teamInfo: teaminfoInput,

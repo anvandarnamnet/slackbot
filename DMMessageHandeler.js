@@ -49,6 +49,7 @@ var addMessage = function(teamId, userId, messages, token) {
                         }
                     });
                 } else{
+                  
                      addMessagesToQueue(messages, teamId,userId);
                      resolve()
                 }
@@ -116,6 +117,7 @@ var popMessage = function(teamId, userId){
                 message = queue[0].messageQueue[0];
             }
             queue[0].messageQueue.splice(0,1);
+            console.log(queue[0])
             updateObject(teamId, userId, queue[0].messageQueue)
             resolve({message:message, token: queue[0].token});
         });
