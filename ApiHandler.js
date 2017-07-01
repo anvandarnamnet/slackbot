@@ -63,12 +63,12 @@ module.exports.getManagerInfo = getManagerInfo;
 // @text - the text to send
 var sendDirectMessage = function(channel, text, tokenm){
   return new Promise(function(resolve, reject){
+    console.log("text: " + text )
     var sendDMMessageString = 'https://slack.com/api/chat.postMessage?token=' + tokenm + '&channel=' + channel + '&text=' + text + '&as_user=true'  ;
     request(sendDMMessageString, function(error, response, body){
       if(error != null){
         reject(error);
       }
-
 
       // return the json body
       resolve(body);

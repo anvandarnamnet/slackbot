@@ -88,7 +88,7 @@ app.post('/slackverification', function(request, response){
     console.log("messageObj")
     console.log(messageObj)
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
-      //console.log(body)
+      console.log(body)
     })
   });
   response.send(challenge)
@@ -130,7 +130,7 @@ app.get('/s', function(reques, responsee) {
   // denna ska kommma via request
   var time = new Date()
   time.setHours(13)
-    time.setMinutes(09)
+    time.setMinutes(14)
 
   // denna ska komma via post requestet
   var days = {
