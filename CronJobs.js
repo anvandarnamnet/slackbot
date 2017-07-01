@@ -54,7 +54,6 @@ var scheduleMessage = function(message) {
           return;
         }
         var updatedMessage = cb[0];
-
         var now = new Date();
         var users = updatedMessage.users;
         jsonHandler.messageHasBeenSend(updatedMessage, now.getWeek());
@@ -69,13 +68,12 @@ var scheduleMessage = function(message) {
                      for(var i = 1; i < updatedMessage.message.length; i++){
                        newMessages.push(updatedMessage.message[i])
                      }
-
                    }
                    messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, newMessages, updatedMessage.token);
                  }
                  else{
                      messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, updatedMessage.message, updatedMessage.token);
-               }
+                   }
                }
              });
            } (users[i].id)

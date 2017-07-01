@@ -87,7 +87,9 @@ app.post('/slackverification', function(request, response){
 
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
 
-    })
+    }).catch(function(err){
+      
+    });
   });
   response.send(challenge)
 });
