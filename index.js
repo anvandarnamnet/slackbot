@@ -130,7 +130,7 @@ app.get('/s', function(reques, responsee) {
   // denna ska kommma via request
   var time = new Date()
   time.setHours(13)
-    time.setMinutes(30)
+    time.setMinutes(39)
 
   // denna ska komma via post requestet
   var days = {

@@ -61,7 +61,8 @@ var scheduleMessage = function(message) {
         for (var i = 0; i < users.length; i++) {
            var message = function(id){
              messageQueue.getMessageQueue(updatedMessage.teamInfo.team.id, users[i].id).then(function(queue){
-                 console.log(id)
+               console.log("queue")
+                 console.log(queue)
                  if(id !== 'USLACKBOT'){
                    if(queue[0].messageQueue.length === 0){
                    apiHandler.sendDirectMessage(id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
