@@ -69,10 +69,9 @@ var sendDirectMessage = function(channel, text, tokenm){
         reject(error);
       }
 
-      var jsonBody = JSON.parse(body);
 
       // return the json body
-      resolve(jsonBody);
+      resolve(body);
     });
   });
 }
