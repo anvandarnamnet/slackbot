@@ -80,7 +80,6 @@ var getApiTokenFromCookie = function(cookie) {
 
 app.post('/slackverification', function(request, response){
   let challenge = request.body.challenge;
-  console.log(request.body)
   var teamId = request.body.team_id;
   var userId = request.body.event.user;
   var token = request.body.token;
@@ -88,6 +87,7 @@ app.post('/slackverification', function(request, response){
     console.log("messageObj")
     console.log(messageObj)
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
+      console.log("body")
       console.log(body)
     })
   });
@@ -130,7 +130,7 @@ app.get('/s', function(reques, responsee) {
   // denna ska kommma via request
   var time = new Date()
   time.setHours(13)
-    time.setMinutes(14)
+    time.setMinutes(30)
 
   // denna ska komma via post requestet
   var days = {
