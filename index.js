@@ -37,7 +37,7 @@ var apiHandler = require('./ApiHandler');
 
 
 // the landingpage
-app.get('/', function(reques, response) {
+app.get('/api', function(reques, response) {
   mixpanel.track('home_page_view');
   //team id: T47DFDA9E
     //user id: U4EE012KZ
@@ -224,7 +224,7 @@ app.get('/callback', function(reques, responsee) {
       responsee.cookie(slackApiTokenString, oldToken, {
         maxAge: 90000000000,
         httpOnly: true
-      }).redirect('/');
+      }).redirect('');
     }
   });
 });
