@@ -88,7 +88,7 @@ app.post('/slackverification', function(request, response){
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
 
     }).catch(function(err){
-      
+
     });
   });
   response.send(challenge)
@@ -207,7 +207,7 @@ app.get('/callback', function(reques, responsee) {
       responsee.cookie(slackApiTokenString, tokenm, {
         maxAge: 90000000000,
         httpOnly: true
-      }).redirect('/');
+      }).redirect('https://sleepy-sea-96410.herokuapp.com/onboard');
     } else {
       var oldToken = reques.cookies.slackApiToken;
       var tokenArr = oldToken.split(',');
