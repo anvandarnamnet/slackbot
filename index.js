@@ -224,7 +224,7 @@ app.get('/api/callback', function(reques, responsee) {
       responsee.cookie(slackApiTokenString, oldToken, {
         maxAge: 90000000000,
         httpOnly: true
-      }).redirect('facebook.com');
+      }).redirect('/onboard');
     }
   });
 });
