@@ -207,7 +207,7 @@ app.get('/api/callback', function(reques, responsee) {
       responsee.cookie(slackApiTokenString, tokenm, {
         maxAge: 90000000000,
         httpOnly: true
-      }).redirect('/onboard');
+      }).redirect('https://speakupcheckin.com/onboard');
     } else {
       var oldToken = reques.cookies.slackApiToken;
       var tokenArr = oldToken.split(',');
