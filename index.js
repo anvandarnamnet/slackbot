@@ -57,14 +57,10 @@ app.get('/api', function(reques, response) {
       for (var i = 0; i < val.length; i++) {
         val[i].token = token;
       }
-      response.render('pages/index', {
-        data: val
-      });
+      response.send(val);
     });
   } else {
-    response.render('pages/index', {
-      data: []
-    });
+    response.send("LOL")
   }
 });
 
