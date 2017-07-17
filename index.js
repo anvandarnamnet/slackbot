@@ -110,26 +110,28 @@ app.get('/api/team', function(reques, responsee) {
 });
 
 // test route to add messagesb
-app.get('/s', function(reques, responsee) {
-  var tokens = getApiTokenFromCookie(reques.cookies.slackApiToken)
+app.post('/api/newmessage', function(reques, responsee) {
+  var requestBody = reques.body;
+
   // teamnamn ska komma via request iallafall
-  var token = tokens[0];
+  var token = requestBody.token
   var teaminfo;
 
   // denna ska komma via request
-  var message = ['How are you','Whats going great','What could be better'];
+  var message = requestBody.messages;
 
   //timezone ska komma via request
-  var tz_offset = 7200;
+  var tz_offset = requestBody.timeZoneOffset;
 
-  // HÄR SKER TIMEZONEFIX
-  // denna ska kommma via request
+
   var time = new Date()
-  time.setHours(14)
-    time.setMinutes(16)
+  time.setHours(requestBody.hour)
+  time.setMinutes(requestBody.minute)
 
   // denna ska komma via post requestet
-  var days = {
+  var days = requestBody.days;
+/*
+  {
     monday: true,
     tuesday: true,
     wednesday: true,
@@ -138,6 +140,7 @@ app.get('/s', function(reques, responsee) {
     saturday: true,
     sunday: true
   };
+  */
 
   let scheduleTimes = correctTimeZone(days, time, tz_offset)
 
@@ -193,36 +196,19 @@ let correctTimeZone = function(days, time, tz_off){
 }
 
 
+app.get('/api/getToken', function(request, response){
+  var code = reques.query.code;
+  apiHandler.getToken(code).then(function(tokenm) {
+    response.send({token: tokenm});
+  });
+
+});
+
 // this is the callback function when coming back from slack login page
 app.get('/api/callback', function(reques, responsee) {
   mixpanel.track('login_with_slack');
   var code = reques.query.code;
-  apiHandler.getToken(code).then(function(tokenm) {
-    console.log(reques.cookies.slackApiToken)
-    if (reques.cookies.slackApiToken == undefined) {
-      responsee.cookie(slackApiTokenString, tokenm, {
-        maxAge: 90000000000,
-        httpOnly: true
-      }).redirect('https://www.speakupcheckin.com/onboard');
-    } else {
-      var oldToken = reques.cookies.slackApiToken;
-      var tokenArr = oldToken.split(',');
-      for (var i = 0; i < tokenArr.length; i++) {
-        if (tokenArr[i] === tokenm) {
-          responsee.cookie(slackApiTokenString, oldToken, {
-            maxAge: 90000000000,
-            httpOnly: true
-          }).redirect('https://www.speakupcheckin.com/onboard');
-          return;
-        }
-      }
-      oldToken = oldToken + ',' + tokenm;
-      responsee.cookie(slackApiTokenString, oldToken, {
-        maxAge: 90000000000,
-        httpOnly: true
-      }).redirect('https://www.speakupcheckin.com/onboard');
-    }
-  });
+  responsee.redirect("https://www.speakupcheckin.com/onboard?code=" + code)
 });
 
 // remove information from values and only add the important stuff
