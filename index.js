@@ -40,7 +40,7 @@ var apiHandler = require('./ApiHandler');
 // the landingpage
 app.post('/api/getInformation', function(reques, response) {
   mixpanel.track('home_page_view');
-  var token = request.body.token;
+  var token = reques.body.token;
 
     var promises = [];
 
