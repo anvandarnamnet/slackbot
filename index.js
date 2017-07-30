@@ -40,16 +40,14 @@ var apiHandler = require('./ApiHandler');
 // the landingpage
 app.post('/api/getInformation', function(reques, response) {
   mixpanel.track('home_page_view');
-
   var token = request.body.token;
 
-  if (token) {
     var promises = [];
 
-      promises.push(apiHandler.getTeamInfo(token));
-      promises.push(apiHandler.getUsers(token));
-      promises.push(jsonHandler.getMessagesByToken(token));
-      promises.push(apiHandler.getManagerInfo(token));
+    promises.push(apiHandler.getTeamInfo(token));
+    promises.push(apiHandler.getUsers(token));
+    promises.push(jsonHandler.getMessagesByToken(token));
+    promises.push(apiHandler.getManagerInfo(token));
 
 
     Promise.all(promises).then(values => {
@@ -59,9 +57,7 @@ app.post('/api/getInformation', function(reques, response) {
       }
       response.send(val);
     });
-  } else {
-    response.send("LOL")
-  }
+
 });
 
 // small split function
@@ -192,7 +188,7 @@ let correctTimeZone = function(days, time, tz_off){
 
 
 app.get('/api/getToken', function(request, response){
-  var code = reques.query.code;
+  var code = request.query.code;
   apiHandler.getToken(code).then(function(tokenm) {
     response.send({token: tokenm});
   });
