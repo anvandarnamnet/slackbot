@@ -10,7 +10,6 @@ let cronJob = require('./CronJobs');
 let messageQueue = require('./DMMessageHandeler');
 // grab the Mixpanel factory
 let Mixpanel = require('mixpanel');
-app.use(bodyParser.json());
 
 // create an instance of the mixpanel client
 let mixpanel = Mixpanel.init('28446a6b8950088604497db036de5bc2');
@@ -24,6 +23,12 @@ mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
 
 
 app.use(express.static(__dirname + '/public'));
+// configure the app to use bodyParser()
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.set('port', (process.env.PORT || 5000));
 
