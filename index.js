@@ -61,7 +61,7 @@ app.post('/api/getInformation', function(reques, response) {
       for (var i = 0; i < val.length; i++) {
         val[i].token = token;
       }
-      response.send(val);
+      response.send(val[0]);
     });
 
 });
