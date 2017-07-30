@@ -41,6 +41,7 @@ var apiHandler = require('./ApiHandler');
 app.post('/api/getInformation', function(reques, response) {
   mixpanel.track('home_page_view');
   var token = reques.body.token;
+  console.log(token)
 
     var promises = [];
 
