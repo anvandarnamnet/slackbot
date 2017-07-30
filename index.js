@@ -21,6 +21,7 @@ cronJob.start();
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
 
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -150,7 +151,7 @@ app.post('/api/newmessage', function(reques, responsee) {
   promises.push(apiHandler.getUsers(token));
 
   Promise.all(promises).then(values => {
-    var rep = 1;
+    var rep = requestBody.repeatEvery;
     jsonHandler.addNewMessage(token, values[0], values[1], time.getHours(), time.getMinutes(), message, days, rep).then(function(back) {
       console.log(back);
       responsee.send({});
