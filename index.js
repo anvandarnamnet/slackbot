@@ -23,8 +23,8 @@ mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
 
 
 app.use(express.static(__dirname + '/public'));
-app.use(express.bodyParser());
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.set('port', (process.env.PORT || 5000));
