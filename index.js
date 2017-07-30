@@ -42,6 +42,7 @@ app.post('/api/getInformation', function(reques, response) {
   mixpanel.track('home_page_view');
   var token = reques.body.token;
   console.log(token)
+  console.log(reques.body)
 
     var promises = [];
 
@@ -52,6 +53,7 @@ app.post('/api/getInformation', function(reques, response) {
 
 
     Promise.all(promises).then(values => {
+      console.log(values)
       var val = getReformatedValues(values);
       for (var i = 0; i < val.length; i++) {
         val[i].token = token;
