@@ -42,7 +42,7 @@ app.post('/api/getInformation', function(reques, response) {
   mixpanel.track('home_page_view');
   var token = reques.body.token;
   console.log(token)
-  console.log(reques.body)
+  console.log(reques)
 
     var promises = [];
 
