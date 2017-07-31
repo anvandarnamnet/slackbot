@@ -204,6 +204,7 @@ app.get('/api/getToken', function(request, response){
 // this is the callback function when coming back from slack login page
 app.get('/api/callback', function(reques, responsee) {
   mixpanel.track('login_with_slack');
+  console.log(reques.query)
   var code = reques.query.code;
   responsee.redirect("https://www.speakupcheckin.com/onboard?code=" + code)
 });
