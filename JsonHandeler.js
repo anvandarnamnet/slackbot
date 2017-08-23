@@ -247,7 +247,6 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
 
                 console.log("Something went wrong when adding a new message to the db: " + err);
             } else {
-                cronJob.newMessage(newMessage)
                 resolve("Message added");
                 mixpanel.track('new_1on1');
 
