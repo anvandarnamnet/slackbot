@@ -72,11 +72,12 @@ var getApiTokenFromCookie = function(cookie) {
 }
 
 app.post('/api/slackverification', function(request, response){
-  let challenge = request.body.challenge;
+  var challenge = request.body.challenge;
   var teamId = request.body.team_id;
   var userId = request.body.event.user;
   var token = request.body.token;
   console.log("slackverifiaction")
+    /*
   messageQueue.popMessage(teamId, userId).then(function(messageObj){
     console.log("message popped:");
     console.log(messageObj)
@@ -86,6 +87,7 @@ app.post('/api/slackverification', function(request, response){
 
     });
   });
+  */
   response.send(challenge)
 });
 
