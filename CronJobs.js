@@ -10,8 +10,9 @@ var messageChanged = function(id) {
 
 }
 
-
-
+var newMessage = function(message){
+  scheduleMessage(message);
+}
 
 // start the cronjob
 var startCron = function() {
@@ -65,7 +66,6 @@ var scheduleMessage = function(message) {
              messageQueue.getMessageQueue(updatedMessage.teamInfo.team.id, users[i].id).then(function(queue){
                  if(id !== 'USLACKBOT'){
                    if(queue[0].messageQueue.length === 0){
-                     console.log("cronjob sending dm")
                    apiHandler.sendDirectMessage(id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
                    var newMessages = []
                    if(updatedMessage.message.length > 1){

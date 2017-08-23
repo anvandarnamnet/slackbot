@@ -1,7 +1,10 @@
 var mongoose = require("mongoose");
 var Mixpanel = require('mixpanel');
 var mixpanel = Mixpanel.init('28446a6b8950088604497db036de5bc2');
-var cronJob = require('./CronJobs');
+var schedule = require('node-schedule');
+
+
+
 var messageSchema = mongoose.Schema({
   token: {
     type: String,
@@ -90,6 +93,7 @@ var getMessagesByToken = function(token) {
 
 module.exports.getMessagesByToken = getMessagesByToken;
 
+var cronjobs = require('./CronJobs');
 
 // get all the messages for a specific day
 var getMessageByDay = function(day) {
@@ -247,6 +251,7 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
 
                 console.log("Something went wrong when adding a new message to the db: " + err);
             } else {
+              cronjobs.newMessage(newMessage)
                 resolve("Message added");
                 mixpanel.track('new_1on1');
 
