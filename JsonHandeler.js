@@ -239,7 +239,8 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
             saturday: days.saturday,
             sunday: days.sunday,
             message: message,
-            users: users
+            users: users,
+            lastMessageSendWeek: -1
         }
 
         var uploadMessages = messages(newMessage);
