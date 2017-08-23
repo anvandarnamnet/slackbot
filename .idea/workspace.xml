@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beca1f89-decd-4580-8c28-9d944d0767f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CronJobs.js" afterPath="$PROJECT_DIR$/CronJobs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JsonHandeler.js" afterPath="$PROJECT_DIR$/JsonHandeler.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -67,8 +65,8 @@
       <file leaf-file-name="CronJobs.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CronJobs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="27" lean-forward="false" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
+            <state relative-caret-position="240">
+              <caret line="16" column="39" lean-forward="false" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -270,12 +268,12 @@
       <workItem from="1497706629001" duration="1878000" />
       <workItem from="1497790376227" duration="6874000" />
       <workItem from="1503506568422" duration="918000" />
-      <workItem from="1503508520980" duration="5967000" />
+      <workItem from="1503508520980" duration="6148000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28279000" />
+    <option name="totallyTimeSpent" value="28460000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -663,8 +661,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CronJobs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="27" lean-forward="false" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
+        <state relative-caret-position="240">
+          <caret line="16" column="39" lean-forward="false" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
           <folding />
         </state>
       </provider>
