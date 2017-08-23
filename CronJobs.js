@@ -11,7 +11,7 @@ var messageChanged = function(id) {
 }
 
 var newMessage = function(message){
-  scheduleMessage(message);
+  startCron()
 }
 
 module.exports.newMessage = newMessage;
