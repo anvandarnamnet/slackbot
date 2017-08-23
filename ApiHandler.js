@@ -62,6 +62,7 @@ module.exports.getManagerInfo = getManagerInfo;
 // @channel - the channel id for the direct message
 // @text - the text to send
 var sendDirectMessage = function(channel, text, tokenm){
+  console.log("Sending direct message")
   return new Promise(function(resolve, reject){
     var sendDMMessageString = 'https://slack.com/api/chat.postMessage?token=' + tokenm + '&channel=' + channel + '&text=' + text + '&as_user=true'  ;
     request(sendDMMessageString, function(error, response, body){

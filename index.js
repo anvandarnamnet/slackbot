@@ -81,9 +81,10 @@ app.post('/api/slackverification', function(request, response){
     console.log("message popped:");
     console.log(messageObj)
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
-        console.log("sending dm")
+        console.log("sending dm");
+        console.log(body)
     }).catch(function(err){
-
+        console.log(err)
     });
   });
 
