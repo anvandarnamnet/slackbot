@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beca1f89-decd-4580-8c28-9d944d0767f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ApiHandler.js" afterPath="$PROJECT_DIR$/ApiHandler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CronJobs.js" afterPath="$PROJECT_DIR$/CronJobs.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JsonHandeler.js" afterPath="$PROJECT_DIR$/JsonHandeler.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,18 +26,18 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="82" column="28" lean-forward="false" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="28" />
+            <state relative-caret-position="120">
+              <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JsonHandeler.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="JsonHandeler.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/JsonHandeler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3465">
-              <caret line="231" column="32" lean-forward="false" selection-start-line="231" selection-start-column="32" selection-end-line="231" selection-end-column="32" />
+            <state relative-caret-position="443">
+              <caret line="250" column="0" lean-forward="false" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -65,17 +66,17 @@
       <file leaf-file-name="CronJobs.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CronJobs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="769">
-              <caret line="58" column="70" lean-forward="true" selection-start-line="58" selection-start-column="70" selection-end-line="58" selection-end-column="70" />
+            <state relative-caret-position="285">
+              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiHandler.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ApiHandler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ApiHandler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
+            <state relative-caret-position="855">
               <caret line="71" column="26" lean-forward="false" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
               <folding />
             </state>
@@ -87,6 +88,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>slackverific</find>
+      <find>addmessage</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,11 +99,11 @@
       <list>
         <option value="$PROJECT_DIR$/views/pages/index.ejs" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/JsonHandeler.js" />
         <option value="$PROJECT_DIR$/DMMessageHandeler.js" />
         <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/CronJobs.js" />
         <option value="$PROJECT_DIR$/ApiHandler.js" />
+        <option value="$PROJECT_DIR$/CronJobs.js" />
+        <option value="$PROJECT_DIR$/JsonHandeler.js" />
       </list>
     </option>
   </component>
@@ -263,12 +265,12 @@
       <workItem from="1497706629001" duration="1878000" />
       <workItem from="1497790376227" duration="6874000" />
       <workItem from="1503506568422" duration="918000" />
-      <workItem from="1503508520980" duration="4149000" />
+      <workItem from="1503508520980" duration="5168000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26461000" />
+    <option name="totallyTimeSpent" value="27480000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -622,26 +624,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JsonHandeler.js">
+    <entry file="file://$PROJECT_DIR$/ApiHandler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3465">
-          <caret line="231" column="32" lean-forward="false" selection-start-line="231" selection-start-column="32" selection-end-line="231" selection-end-column="32" />
+        <state relative-caret-position="855">
+          <caret line="71" column="26" lean-forward="false" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="82" column="28" lean-forward="false" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CronJobs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="769">
-          <caret line="58" column="70" lean-forward="true" selection-start-line="58" selection-start-column="70" selection-end-line="58" selection-end-column="70" />
+        <state relative-caret-position="120">
+          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -654,10 +648,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ApiHandler.js">
+    <entry file="file://$PROJECT_DIR$/CronJobs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="71" column="26" lean-forward="false" selection-start-line="71" selection-start-column="26" selection-end-line="71" selection-end-column="26" />
+        <state relative-caret-position="285">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JsonHandeler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="250" column="0" lean-forward="false" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Mixpanel = require('mixpanel');
 var mixpanel = Mixpanel.init('28446a6b8950088604497db036de5bc2');
-
+var cronJob = require('./CronJobs');
 var messageSchema = mongoose.Schema({
   token: {
     type: String,
@@ -247,6 +247,7 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
 
                 console.log("Something went wrong when adding a new message to the db: " + err);
             } else {
+                cronJob.newMessage(newMessage)
                 resolve("Message added");
                 mixpanel.track('new_1on1');
 

@@ -10,6 +10,15 @@ var messageChanged = function(id) {
 
 }
 
+
+var newMessage = function(message){
+  scheduleMessage(message)
+}
+
+module.exports.newMessage = newMessage;
+
+
+
 // start the cronjob
 var startCron = function() {
   var now = new Date();
