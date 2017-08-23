@@ -118,41 +118,41 @@ app.post('/api/newmessage', function(reques, responsee) {
   var teaminfo;
 
   // denna ska komma via request
-  var message = requestBody.messages;
+  var message = requestBody.questions;
 
   //timezone ska komma via request
-  var tz_offset = requestBody.timeZoneOffset;
+  var tz_offset = requestBody.timeZoneOffset * 60;
 
 
+  var timeString =  requestBody.schedule.time;
+  var hours = timeString.split(":")[0];
+  var minutes = timeString.split(":")[1];
   var time = new Date()
-  time.setHours(requestBody.hour)
-  time.setMinutes(requestBody.minute)
+  time.setHours(hours)
+  time.setMinutes(minutes)
 
   // denna ska komma via post requestet
-  var days = requestBody.days;
-/*
-  {
-    monday: true,
-    tuesday: true,
-    wednesday: true,
-    thursday: true,
-    friday: true,
-    saturday: true,
-    sunday: true
+  var days = requestBody.schedule.repeat_on;
+  var dayFormat = {
+    monday: days.mon,
+    tuesday: days.tue,
+    wednesday: days.wed,
+    thursday: days.thu,
+    friday: days.fri,
+    saturday: days.sat,
+    sunday: days.sun
   };
-  */
 
-  let scheduleTimes = correctTimeZone(days, time, tz_offset)
+  days = dayFormat
+  correctTimeZone(days, time, tz_offset)
 
   var promises = [];
-  console.log("HEEJ")
 
   promises.push(apiHandler.getTeamInfo(token));
-  promises.push(apiHandler.getUsers(token));
 
   Promise.all(promises).then(values => {
-    var rep = requestBody.repeatEvery;
-    jsonHandler.addNewMessage(token, values[0], values[1], time.getHours(), time.getMinutes(), message, days, rep).then(function(back) {
+    var repeatEvery = requestBody.schedule.repeat_every;
+    jsonHandler.addNewMessage(token, values[0], requestBody.users, time.getHours(), time.getMinutes(), message, days, repeatEvery).then(function(back) {
       console.log(back);
       responsee.send({});
 
