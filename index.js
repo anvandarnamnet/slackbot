@@ -109,6 +109,9 @@ app.get('/api/team', function(reques, responsee) {
 // test route to add messagesb
 app.post('/api/newmessage', function(reques, responsee) {
   var requestBody = reques.body;
+  console.log(reques);
+  console.log(requestBody);
+
 
   // teamnamn ska komma via request iallafall
   var token = requestBody.token
@@ -142,6 +145,7 @@ app.post('/api/newmessage', function(reques, responsee) {
   let scheduleTimes = correctTimeZone(days, time, tz_offset)
 
   var promises = [];
+  console.log("HEEJ")
 
   promises.push(apiHandler.getTeamInfo(token));
   promises.push(apiHandler.getUsers(token));
