@@ -76,15 +76,11 @@ app.post('/api/slackverification', function(request, response){
   var teamId = request.body.team_id;
  var userId = request.body.event.user;
     var token = request.body.token;
-  console.log("slackverifiaction")
   messageQueue.popMessage(teamId, userId).then(function(messageObj){
-    console.log("message popped:");
-    console.log(messageObj)
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
-        console.log("sending dm");
-        console.log(body)
+
     }).catch(function(err){
-        console.log(err)
+        //console.log(err)
     });
   });
 
@@ -102,7 +98,6 @@ app.get('/api/team', function(reques, responsee) {
 
   Promise.all(promises).then(values => {
     var val = getReformatedValues(values)[0];
-    console.log(val);
     val.token = teamToken;
     responsee.render('pages/team', {
       data: val
@@ -113,9 +108,6 @@ app.get('/api/team', function(reques, responsee) {
 // test route to add messagesb
 app.post('/api/newmessage', function(reques, responsee) {
   var requestBody = reques.body;
-  console.log(reques);
-  console.log(requestBody);
-
 
   // teamnamn ska komma via request iallafall
   var token = requestBody.token
@@ -157,7 +149,6 @@ app.post('/api/newmessage', function(reques, responsee) {
   Promise.all(promises).then(values => {
     var repeatEvery = requestBody.schedule.repeat_every;
     jsonHandler.addNewMessage(token, values[0], requestBody.users, time.getHours(), time.getMinutes(), message, days, repeatEvery).then(function(back) {
-      console.log(back);
       responsee.send({});
 
     });

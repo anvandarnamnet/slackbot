@@ -26,7 +26,6 @@ module.exports = messageQueue;
 
 
 var addMessage = function(teamId, userId, messages, token) {
-    console.log(teamId + ' ' + userId)
     return new Promise(function (resolve, reject) {
             getMessagesQueue(teamId, userId).then(function (queues) {
                 if (queues.length === 0) {
@@ -66,7 +65,6 @@ var addMessagesToQueue = function(messages, teamId, userId){
            exists = false;
            if(existingMessages === null){
                existingMessages = []
-               console.log('ad');
            }
            for(var j = 0; j < existingMessages.length; j++){
                if(existingMessages[j] === messages[i]){
@@ -117,7 +115,6 @@ var popMessage = function(teamId, userId){
                 message = queue[0].messageQueue[0];
             }
             queue[0].messageQueue.splice(0,1);
-            console.log(queue[0])
             updateObject(teamId, userId, queue[0].messageQueue)
             resolve({message:message, token: queue[0].token});
         });

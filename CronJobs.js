@@ -59,6 +59,7 @@ var scheduleMessage = function(message) {
           console.log("User removed 1 on 1");
           return;
         }
+
         var updatedMessage = cb[0];
         var now = new Date();
         var users = updatedMessage.users;
