@@ -58,6 +58,7 @@ var addMessage = function(teamId, userId, messages, token) {
 
     };
 
+
 var addMessagesToQueue = function(messages, teamId, userId){
     getMessagesQueue(teamId,userId).then(function(queue){
        var existingMessages = queue[0].messageQueue;

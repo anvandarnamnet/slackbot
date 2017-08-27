@@ -111,6 +111,8 @@ app.get('/api/team', function(reques, responsee) {
 app.post('/api/newmessage', function(reques, responsee) {
   var requestBody = reques.body;
 
+  console.log()
+
   // teamnamn ska komma via request iallafall
   var token = requestBody.token
   var teaminfo;
@@ -147,8 +149,10 @@ app.post('/api/newmessage', function(reques, responsee) {
   var promises = [];
 
   promises.push(apiHandler.getTeamInfo(token));
+  promises.push(apiHandler.getManagerInfo(token));
 
   Promise.all(promises).then(values => {
+    console.log(values[1])
     var repeatEvery = requestBody.schedule.repeat_every;
     jsonHandler.addNewMessage(token, values[0], requestBody.users, time.getHours(), time.getMinutes(), message, days, repeatEvery).then(function(back) {
       responsee.send({});

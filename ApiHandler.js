@@ -40,6 +40,7 @@ var getTeamInfo = function(incomingToken){
 
 module.exports.getTeamInfo = getTeamInfo;
 
+
 // get information about the manager
 var getManagerInfo = function(token){
   return new Promise(function(resolve,reject){
@@ -53,7 +54,7 @@ var getManagerInfo = function(token){
       resolve(jsonBody);
     });
   });
-}
+};
 
 module.exports.getManagerInfo = getManagerInfo;
 
