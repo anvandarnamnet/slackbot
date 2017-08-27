@@ -82,6 +82,8 @@ app.post('/api/slackverification', function(request, response){
     }).catch(function(err){
         //console.log(err)
     });
+  }).catch(function(err){
+    console.log(err)
   });
 
   response.send(challenge)
