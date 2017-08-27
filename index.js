@@ -56,7 +56,6 @@ app.post('/api/getInformation', function(reques, response) {
 
 
     Promise.all(promises).then(values => {
-      console.log(values)
       var val = getReformatedValues(values);
       for (var i = 0; i < val.length; i++) {
         val[i].token = token;
@@ -72,10 +71,11 @@ var getApiTokenFromCookie = function(cookie) {
 }
 
 app.post('/api/slackverification', function(request, response){
+  console.log(request);
   var challenge = request.body.challenge;
   var teamId = request.body.team_id;
- var userId = request.body.event.user;
-    var token = request.body.token;
+  var userId = request.body.event.user;
+  var token = request.body.token;
   messageQueue.popMessage(teamId, userId).then(function(messageObj){
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
 
