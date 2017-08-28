@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beca1f89-decd-4580-8c28-9d944d0767f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ApiHandler.js" afterPath="$PROJECT_DIR$/ApiHandler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CronJobs.js" afterPath="$PROJECT_DIR$/CronJobs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DMMessageHandeler.js" afterPath="$PROJECT_DIR$/DMMessageHandeler.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,8 +25,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
-              <caret line="62" column="25" lean-forward="true" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+            <state relative-caret-position="927">
+              <caret line="62" column="24" lean-forward="false" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -280,12 +277,12 @@
       <workItem from="1503506568422" duration="918000" />
       <workItem from="1503508520980" duration="7251000" />
       <workItem from="1503836932716" duration="3166000" />
-      <workItem from="1503861629047" duration="5131000" />
+      <workItem from="1503861629047" duration="5880000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37860000" />
+    <option name="totallyTimeSpent" value="38609000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -729,8 +726,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="62" column="25" lean-forward="true" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
+        <state relative-caret-position="927">
+          <caret line="62" column="24" lean-forward="false" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
           <folding />
         </state>
       </provider>

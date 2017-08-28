@@ -60,7 +60,7 @@ app.post('/api/getInformation', function(reques, response) {
       for (var i = 0; i < val.length; i++) {
         val[i].token = token;
       }
-      console.log(val[0])
+      console.log(values)
       response.send(val[0]);
     });
 
