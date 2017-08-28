@@ -35,7 +35,9 @@ var getIdentity = function(token){
             }
         });
     });
-}
+};
+
+module.exports.getIdentity = getIdentity;
 
 // get info of a team by token
 var getTeamInfo = function(incomingToken){

@@ -53,8 +53,8 @@ app.post('/api/getInformation', function(reques, response) {
     promises.push(apiHandler.getUsers(token));
     promises.push(jsonHandler.getMessagesByToken(token));
     promises.push(apiHandler.getManagerInfo(token));
-
-
+    promises.push(apiHandler.getIdentity(token));
+    
     Promise.all(promises).then(values => {
       var val = getReformatedValues(values);
       for (var i = 0; i < val.length; i++) {
