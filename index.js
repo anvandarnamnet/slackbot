@@ -53,14 +53,13 @@ app.post('/api/getInformation', function(reques, response) {
     promises.push(apiHandler.getUsers(token));
     promises.push(jsonHandler.getMessagesByToken(token));
     promises.push(apiHandler.getManagerInfo(token));
-    promises.push(apiHandler.getIdentity(token));
-    
+
+
     Promise.all(promises).then(values => {
       var val = getReformatedValues(values);
       for (var i = 0; i < val.length; i++) {
         val[i].token = token;
       }
-      console.log(values)
       response.send(val[0]);
     });
 
@@ -77,7 +76,6 @@ app.post('/api/slackverification', function(request, response){
   var teamId = request.body.team_id;
   var userId = request.body.event.user;
   var token = request.body.token;
-  // TODO
   messageQueue.popMessage(teamId, userId).then(function(messageObj){
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
 
@@ -151,10 +149,8 @@ app.post('/api/newmessage', function(reques, responsee) {
   var promises = [];
 
   promises.push(apiHandler.getTeamInfo(token));
-  promises.push(apiHandler.getManagerInfo(token));
 
   Promise.all(promises).then(values => {
-    console.log(values[1])
     var repeatEvery = requestBody.schedule.repeat_every;
     jsonHandler.addNewMessage(token, values[0], requestBody.users, time.getHours(), time.getMinutes(), message, days, repeatEvery).then(function(back) {
       responsee.send({});

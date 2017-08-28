@@ -17,10 +17,6 @@ var queueSchema = mongoose.Schema({
     token:{
       type:String,
       required:true
-    },
-    from:{
-        type:String,
-        required:true
     }
 
 })
@@ -29,16 +25,15 @@ var messageQueue = mongoose.model("messageQueue", queueSchema);
 module.exports = messageQueue;
 
 
-var addMessage = function(teamId, userId, messages, token, from) {
+var addMessage = function(teamId, userId, messages, token) {
     return new Promise(function (resolve, reject) {
-            getMessagesQueue(teamId, userId, from).then(function (queues) {
+            getMessagesQueue(teamId, userId).then(function (queues) {
                 if (queues.length === 0) {
                     var newMessageQueue = {
                         teamId: teamId,
                         userId: userId,
                         messageQueue:messages,
-                        token:token,
-                        from: from
+                        token:token
                     }
 
                     var uploadMessageQueue = messageQueue(newMessageQueue);
@@ -54,7 +49,7 @@ var addMessage = function(teamId, userId, messages, token, from) {
                     });
                 } else{
                   
-                     addMessagesToQueue(messages, teamId,userId, from);
+                     addMessagesToQueue(messages, teamId,userId);
                      resolve()
                 }
                 })
@@ -63,9 +58,8 @@ var addMessage = function(teamId, userId, messages, token, from) {
 
     };
 
-
-var addMessagesToQueue = function(messages, teamId, userId, from){
-    getMessagesQueue(teamId,userId, from).then(function(queue){
+var addMessagesToQueue = function(messages, teamId, userId){
+    getMessagesQueue(teamId,userId).then(function(queue){
        var existingMessages = queue[0].messageQueue;
        for(var i = 0; i < messages.length; i++){
            exists = false;
@@ -83,23 +77,22 @@ var addMessagesToQueue = function(messages, teamId, userId, from){
            }
        }
 
-       updateObject(teamId,userId, existingMessages, from);
+       updateObject(teamId,userId, existingMessages);
 
 
     });
 };
 
-var updateObject = function (teamId, userId, messages, from){
+var updateObject = function (teamId, userId, messages){
     var query = {
-        teamId: teamId,
-        userId: userId,
-        from: from
+        'teamId':teamId,
+        'userId':userId
     };
 
     var data = {
-        teamId: teamId,
-        userId: userId,
-        messageQueue: messages
+        'teamId':teamId,
+        'userId':userId,
+        'messageQueue':messages
     };
 
     // fixa lite error fix fixing
@@ -111,9 +104,9 @@ var updateObject = function (teamId, userId, messages, from){
 module.exports.addMessage = addMessage;
 
 
-var popMessage = function(teamId, userId, from){
+var popMessage = function(teamId, userId){
     return new Promise(function(resolve, reject) {
-        getMessagesQueue(teamId,userId, from).then(function(queue) {
+        getMessagesQueue(teamId,userId).then(function(queue) {
             var message = ""
             if(queue[0].messageQueue.length === 0){
                 reject("no message in queue");
@@ -130,12 +123,11 @@ var popMessage = function(teamId, userId, from){
 
 module.exports.popMessage = popMessage;
 
-var getMessagesQueue = function(teamId, userId, from){
+var getMessagesQueue = function(teamId, userId){
     return new Promise(function(resolve, reject) {
         var query = messageQueue.find({
             teamId: teamId,
-            userId: userId,
-            from: from
+            userId: userId
         });
 
         query.exec(function(err, queues) {
