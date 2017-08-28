@@ -23,6 +23,20 @@ var getToken = function(code){
 
 module.exports.getToken = getToken;
 
+var getIdentity = function(token){
+    return new Promise(function(resolve, reject){
+        var getInfoString = 'https://slack.com/api/users.identity?token=' + token;
+        request(getInfoString, function(error, response, body){
+            if(error != null){
+                reject(error);
+            } else{
+                var jsonBody = JSON.parse(body);
+                resolve(jsonBody);
+            }
+        });
+    });
+}
+
 // get info of a team by token
 var getTeamInfo = function(incomingToken){
   return new Promise(function(resolve, reject){

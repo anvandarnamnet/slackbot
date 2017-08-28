@@ -60,6 +60,7 @@ app.post('/api/getInformation', function(reques, response) {
       for (var i = 0; i < val.length; i++) {
         val[i].token = token;
       }
+      console.log(val[0])
       response.send(val[0]);
     });
 
@@ -76,6 +77,7 @@ app.post('/api/slackverification', function(request, response){
   var teamId = request.body.team_id;
   var userId = request.body.event.user;
   var token = request.body.token;
+  // TODO
   messageQueue.popMessage(teamId, userId).then(function(messageObj){
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
 
