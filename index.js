@@ -143,14 +143,15 @@ app.post('/api/newmessage', function(reques, responsee) {
   correctTimeZone(days, time, tz_offset)
 
   var promises = [];
-  apiHandler.channelInfo(token, requestBody.users[0].id)
   //  console.log(requestBody.users[0].id)
 
   promises.push(apiHandler.getTeamInfo(token));
+  promises.push(apiHandler.channelInfo(token));
 
-  Promise.all(promises).then(values => {
+
+    Promise.all(promises).then(values => {
     var repeatEvery = requestBody.schedule.repeat_every;
-    jsonHandler.addNewMessage(token, values[0], requestBody.users, time.getHours(), time.getMinutes(), message, days, repeatEvery).then(function(back) {
+    jsonHandler.addNewMessage(token, values[0], requestBody.users, time.getHours(), time.getMinutes(), message, days, repeatEvery, values[1]).then(function(back) {
       responsee.send({});
     });
   });
