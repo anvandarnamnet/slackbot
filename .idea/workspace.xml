@@ -65,8 +65,8 @@
       <file leaf-file-name="CronJobs.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CronJobs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="729">
-              <caret line="55" column="39" lean-forward="false" selection-start-line="55" selection-start-column="39" selection-end-line="55" selection-end-column="39" />
+            <state relative-caret-position="821">
+              <caret line="76" column="57" lean-forward="true" selection-start-line="76" selection-start-column="57" selection-end-line="76" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -286,12 +286,12 @@
       <workItem from="1503508520980" duration="7251000" />
       <workItem from="1503836932716" duration="3166000" />
       <workItem from="1503861629047" duration="8338000" />
-      <workItem from="1504377901241" duration="6403000" />
+      <workItem from="1504377901241" duration="6672000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47470000" />
+    <option name="totallyTimeSpent" value="47739000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -735,8 +735,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CronJobs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="729">
-          <caret line="55" column="39" lean-forward="false" selection-start-line="55" selection-start-column="39" selection-end-line="55" selection-end-column="39" />
+        <state relative-caret-position="821">
+          <caret line="76" column="57" lean-forward="true" selection-start-line="76" selection-start-column="57" selection-end-line="76" selection-end-column="57" />
           <folding />
         </state>
       </provider>

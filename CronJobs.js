@@ -69,7 +69,7 @@ var scheduleMessage = function(message) {
         jsonHandler.messageHasBeenSend(updatedMessage, now.getWeek());
         for (var i = 0; i < users.length; i++) {
            var message = function(id){
-             messageQueue.getMessageQueue(updatedMessage.teamInfo.team.id, users[i].id).then(function(queue){
+             messageQueue.getMessageQueue(updatedMessage.teamInfo.team.id, users[i].id, updatedMessage.token).then(function(queue){
                  if(id !== 'USLACKBOT'){
                    if(queue[0].messageQueue.length === 0){
                    apiHandler.sendDirectMessage(id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
