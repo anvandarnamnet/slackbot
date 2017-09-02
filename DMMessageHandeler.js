@@ -135,7 +135,6 @@ var getMessagesQueueFromChannel = function(teamId, userId, channel){
     return new Promise(function(resolve, reject) {
         var s = {
             teamId: teamId,
-            userId: userId,
             imId:channel
 
         }
