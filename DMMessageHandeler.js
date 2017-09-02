@@ -110,9 +110,9 @@ var updateObject = function (teamId, userId, messages, token){
 module.exports.addMessage = addMessage;
 
 
-var popMessage = function(teamId, userId){
+var popMessage = function(teamId, userId, channel){
     return new Promise(function(resolve, reject) {
-        getMessagesQueue(teamId,userId).then(function(queue) {
+        getMessagesQueueFromChannel(teamId,userId, channel).then(function(queue) {
             var message = ""
             if(queue[0].messageQueue.length === 0){
                 reject("no message in queue");
@@ -121,13 +121,32 @@ var popMessage = function(teamId, userId){
                 message = queue[0].messageQueue[0];
             }
             queue[0].messageQueue.splice(0,1);
-            updateObject(teamId, userId, queue[0].messageQueue)
+            updateObject(teamId, userId, queue[0].messageQueue, queue[0].token);
             resolve({message:message, token: queue[0].token});
         });
     });
 };
 
 module.exports.popMessage = popMessage;
+
+var getMessagesQueueFromChannel = function(teamId, userId, channel){
+    return new Promise(function(resolve, reject) {
+        var query = messageQueue.find({
+            teamId: teamId,
+            userId: userId,
+            imId:channel
+
+        });
+
+        query.exec(function(err, queues) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queues);
+            }
+        })
+    });
+};
 
 var getMessagesQueue = function(teamId, userId, token){
     return new Promise(function(resolve, reject) {

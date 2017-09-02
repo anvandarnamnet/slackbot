@@ -73,12 +73,12 @@ app.post('/api/slackverification', function(request, response){
   var challenge = request.body.challenge;
   var teamId = request.body.team_id;
   var userId = request.body.event.user;
-  var token = request.body.token;
-  messageQueue.popMessage(teamId, userId).then(function(messageObj){
+  var channel = request.body.event.channel;
+  messageQueue.popMessage(teamId, userId, channel).then(function(messageObj){
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
 
     }).catch(function(err){
-        //console.log(err)
+        console.log(err)
     });
   }).catch(function(err){
     console.log(err)
