@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="beca1f89-decd-4580-8c28-9d944d0767f3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ApiHandler.js" afterPath="$PROJECT_DIR$/ApiHandler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JsonHandeler.js" afterPath="$PROJECT_DIR$/JsonHandeler.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,7 +32,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JsonHandeler.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JsonHandeler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JsonHandeler.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="852">
@@ -73,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiHandler.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ApiHandler.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ApiHandler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1092">
-              <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+            <state relative-caret-position="1107">
+              <caret line="139" column="33" lean-forward="false" selection-start-line="139" selection-start-column="33" selection-end-line="139" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -113,8 +112,8 @@
         <option value="$PROJECT_DIR$/DMMessageHandeler.js" />
         <option value="$PROJECT_DIR$/CronJobs.js" />
         <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/ApiHandler.js" />
         <option value="$PROJECT_DIR$/JsonHandeler.js" />
+        <option value="$PROJECT_DIR$/ApiHandler.js" />
       </list>
     </option>
   </component>
@@ -280,12 +279,12 @@
       <workItem from="1503508520980" duration="7251000" />
       <workItem from="1503836932716" duration="3166000" />
       <workItem from="1503861629047" duration="8338000" />
-      <workItem from="1504377901241" duration="2140000" />
+      <workItem from="1504377901241" duration="2208000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43207000" />
+    <option name="totallyTimeSpent" value="43275000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -711,14 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ApiHandler.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1092">
-          <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="696">
@@ -731,6 +722,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="852">
           <caret line="219" column="17" lean-forward="false" selection-start-line="219" selection-start-column="17" selection-end-line="219" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ApiHandler.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1107">
+          <caret line="139" column="33" lean-forward="false" selection-start-line="139" selection-start-column="33" selection-end-line="139" selection-end-column="33" />
           <folding />
         </state>
       </provider>

@@ -137,6 +137,7 @@ var channelInfo = function(token, channel){
             }
             var jsonBody = JSON.parse(body);
             console.log(jsonBody)
+            resolve(jsonBody.ims)
         });
     })
 };
