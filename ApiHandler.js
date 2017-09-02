@@ -126,7 +126,22 @@ var getChannels = function(token){
       console.log(jsonBody.channels[0].members)
     });
   })
-}
+};
+
+var channelInfo = function(token, channel){
+    return new Promise(function(resolve, reject){
+        var groupString = 'https://slack.com/api/channels.info?token=' + token + '&channel=' + channel;
+        request(groupString, function(error, response, body){
+            if(error != null){
+                reject(error);
+            }
+            var jsonBody = JSON.parse(body);
+            console.log(jsonBody)
+        });
+    })
+};
+module.exports.channelInfo = channelInfo;
+
 
 module.exports.getChannels = getChannels;
 

@@ -44,8 +44,6 @@ var apiHandler = require('./ApiHandler');
 app.post('/api/getInformation', function(reques, response) {
   mixpanel.track('home_page_view');
   var token = reques.body.token;
-  console.log(token)
-  console.log(reques)
 
     var promises = [];
 
@@ -111,8 +109,6 @@ app.get('/api/team', function(reques, responsee) {
 app.post('/api/newmessage', function(reques, responsee) {
   var requestBody = reques.body;
 
-  console.log()
-
   // teamnamn ska komma via request iallafall
   var token = requestBody.token
   var teaminfo;
@@ -147,7 +143,8 @@ app.post('/api/newmessage', function(reques, responsee) {
   correctTimeZone(days, time, tz_offset)
 
   var promises = [];
-
+  //apiHandler.channelInfo(token, req)
+    console.log(requestBody.users)
   promises.push(apiHandler.getTeamInfo(token));
 
   Promise.all(promises).then(values => {
