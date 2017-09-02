@@ -152,7 +152,6 @@ app.post('/api/newmessage', function(reques, responsee) {
     var repeatEvery = requestBody.schedule.repeat_every;
     jsonHandler.addNewMessage(token, values[0], requestBody.users, time.getHours(), time.getMinutes(), message, days, repeatEvery).then(function(back) {
       responsee.send({});
-
     });
   });
 

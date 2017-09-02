@@ -215,17 +215,28 @@ var messageHasBeenSend = function(message, weekSend) {
 module.exports.messageHasBeenSend = messageHasBeenSend;
 
 queueHandler = require('./DMMessageHandeler');
-// add a new message
-var addNewMessage = function(token, teaminfoInput, users, hour, minute, message, days, repeatsEvery) {
 
+var getImId = function(id, list){
+  for(i in list ){
+    if(list[i].user == id){
+      return list[i].id
+    }
+  }
+}
+
+// add a new message
+var addNewMessage = function(token, teaminfoInput, users, hour, minute, message, days, repeatsEvery, imIds) {
     return new Promise(function(resolve, reject) {
       for(var i = 0; i < users.length; i++){
         if(!users[i].is_bot && users[i].id !== 'USLACKBOT'){
+          var id = getImId(users[i].id, imIds);
+          console.log("HELLO WHATSUp: " + id);
+          // TODO
           queueHandler.addMessage(teaminfoInput.team.id, users[i].id, [], token);
         }
       }
 
-        var newMessage = {
+      var newMessage = {
             token: token,
             teamInfo: teaminfoInput,
             repeatsEvery: repeatsEvery,
@@ -241,7 +252,7 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
             message: message,
             users: users,
             lastMessageSendWeek: -1
-        }
+      };
 
         var uploadMessages = messages(newMessage);
 
