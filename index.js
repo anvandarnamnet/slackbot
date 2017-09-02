@@ -143,8 +143,9 @@ app.post('/api/newmessage', function(reques, responsee) {
   correctTimeZone(days, time, tz_offset)
 
   var promises = [];
-  //apiHandler.channelInfo(token, req)
-    console.log(requestBody.users)
+  apiHandler.channelInfo(token, requestBody.users[0].id))
+  //  console.log(requestBody.users[0].id)
+
   promises.push(apiHandler.getTeamInfo(token));
 
   Promise.all(promises).then(values => {
