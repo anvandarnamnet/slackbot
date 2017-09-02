@@ -52,6 +52,7 @@ var scheduleMessage = function(message) {
 
   if (checkMessageShouldBeSend(message)) {
     var cron = new CronJob('00 ' + message.minute + ' ' + message.hour + ' * * *', function() {
+      console.log("HELLO CRON!")
       // get the newest version of the message object
       jsonHandler.getMessageById(message.id).then(function(cb) {
         // the user has removed the 1on1

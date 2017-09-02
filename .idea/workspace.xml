@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beca1f89-decd-4580-8c28-9d944d0767f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DMMessageHandeler.js" afterPath="$PROJECT_DIR$/DMMessageHandeler.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CronJobs.js" afterPath="$PROJECT_DIR$/CronJobs.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -52,21 +52,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DMMessageHandeler.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DMMessageHandeler.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DMMessageHandeler.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1099">
-              <caret line="139" column="0" lean-forward="true" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+            <state relative-caret-position="954">
+              <caret line="138" column="18" lean-forward="true" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CronJobs.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CronJobs.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CronJobs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="68" column="41" lean-forward="false" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="41" />
+            <state relative-caret-position="714">
+              <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -100,8 +100,8 @@
       <find>channels.info</find>
       <find>addNewMessage</find>
       <find>addMessage</find>
-      <find>messageQueue</find>
       <find>addMessagesToQueue</find>
+      <find>messageQueue</find>
       <find>getMessagesQueue</find>
     </findStrings>
     <dirStrings>
@@ -118,9 +118,9 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/ApiHandler.js" />
         <option value="$PROJECT_DIR$/JsonHandeler.js" />
-        <option value="$PROJECT_DIR$/CronJobs.js" />
         <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/DMMessageHandeler.js" />
+        <option value="$PROJECT_DIR$/CronJobs.js" />
       </list>
     </option>
   </component>
@@ -286,12 +286,12 @@
       <workItem from="1503508520980" duration="7251000" />
       <workItem from="1503836932716" duration="3166000" />
       <workItem from="1503861629047" duration="8338000" />
-      <workItem from="1504377901241" duration="4906000" />
+      <workItem from="1504377901241" duration="6361000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45973000" />
+    <option name="totallyTimeSpent" value="47428000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -709,14 +709,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CronJobs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="68" column="41" lean-forward="false" selection-start-line="68" selection-start-column="26" selection-end-line="68" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="427">
@@ -735,8 +727,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DMMessageHandeler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1099">
-          <caret line="139" column="0" lean-forward="true" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+        <state relative-caret-position="954">
+          <caret line="138" column="18" lean-forward="true" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CronJobs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="54" column="30" lean-forward="false" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
           <folding />
         </state>
       </provider>
