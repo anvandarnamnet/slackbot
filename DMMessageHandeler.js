@@ -133,12 +133,14 @@ module.exports.popMessage = popMessage;
 var getMessagesQueueFromChannel = function(teamId, userId, channel){
     console.log(channel)
     return new Promise(function(resolve, reject) {
-        var query = messageQueue.find({
+        var s = {
             teamId: teamId,
             userId: userId,
             imId:channel
 
-        });
+        }
+        console.log(s)
+        var query = messageQueue.find(s);
 
         query.exec(function(err, queues) {
             if (err) {
