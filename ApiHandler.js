@@ -130,7 +130,7 @@ var getChannels = function(token){
 
 var channelInfo = function(token, channel){
     return new Promise(function(resolve, reject){
-        var groupString = 'https://slack.com/api/channels.info?token=' + token + '&channel=' + channel;
+        var groupString = 'https://slack.com/api/im.list?token=' + token;
         request(groupString, function(error, response, body){
             if(error != null){
                 reject(error);
