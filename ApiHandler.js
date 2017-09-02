@@ -136,7 +136,6 @@ var channelInfo = function(token, channel){
                 reject(error);
             }
             var jsonBody = JSON.parse(body);
-            console.log("WOWOWOWOWOWOWO");
             console.log(jsonBody)
         });
     })
