@@ -218,6 +218,8 @@ queueHandler = require('./DMMessageHandeler');
 
 var getImId = function(id, list){
   for(i in list ){
+    console.log(list[i])
+      console.log(id)
     if(list[i].user == id){
       return list[i].id
     }
