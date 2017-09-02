@@ -76,7 +76,7 @@ var scheduleMessage = function(message) {
                        newMessages.push(updatedMessage.message[i])
                      }
                    }
-                   messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, newMessages, updatedMessage.token);
+                      messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, newMessages, updatedMessage.token);
                  }
                  else{
                      messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, updatedMessage.message, updatedMessage.token);

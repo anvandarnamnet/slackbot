@@ -17,6 +17,10 @@ var queueSchema = mongoose.Schema({
     token:{
       type:String,
       required:true
+    },
+    imId:{
+        type:String,
+        required:true
     }
 
 })
@@ -25,14 +29,15 @@ var messageQueue = mongoose.model("messageQueue", queueSchema);
 module.exports = messageQueue;
 
 
-var addMessage = function(teamId, userId, messages, token) {
+var addMessage = function(teamId, userId, messages, token, imId) {
     return new Promise(function (resolve, reject) {
-            getMessagesQueue(teamId, userId).then(function (queues) {
+            getMessagesQueue(teamId, userId, token).then(function (queues) {
                 if (queues.length === 0) {
                     var newMessageQueue = {
                         teamId: teamId,
                         userId: userId,
                         messageQueue:messages,
+                        imId: imId,
                         token:token
                     }
 
@@ -49,7 +54,7 @@ var addMessage = function(teamId, userId, messages, token) {
                     });
                 } else{
                   
-                     addMessagesToQueue(messages, teamId,userId);
+                     addMessagesToQueue(messages, teamId,userId, token);
                      resolve()
                 }
                 })
@@ -58,8 +63,8 @@ var addMessage = function(teamId, userId, messages, token) {
 
     };
 
-var addMessagesToQueue = function(messages, teamId, userId){
-    getMessagesQueue(teamId,userId).then(function(queue){
+var addMessagesToQueue = function(messages, teamId, userId, token){
+    getMessagesQueue(teamId,userId, token).then(function(queue){
        var existingMessages = queue[0].messageQueue;
        for(var i = 0; i < messages.length; i++){
            exists = false;
@@ -77,16 +82,17 @@ var addMessagesToQueue = function(messages, teamId, userId){
            }
        }
 
-       updateObject(teamId,userId, existingMessages);
+       updateObject(teamId,userId, existingMessages, token);
 
 
     });
 };
 
-var updateObject = function (teamId, userId, messages){
+var updateObject = function (teamId, userId, messages, token){
     var query = {
         'teamId':teamId,
-        'userId':userId
+        'userId':userId,
+        'token': token
     };
 
     var data = {
@@ -123,11 +129,13 @@ var popMessage = function(teamId, userId){
 
 module.exports.popMessage = popMessage;
 
-var getMessagesQueue = function(teamId, userId){
+var getMessagesQueue = function(teamId, userId, token){
     return new Promise(function(resolve, reject) {
         var query = messageQueue.find({
             teamId: teamId,
-            userId: userId
+            userId: userId,
+            token:token
+
         });
 
         query.exec(function(err, queues) {

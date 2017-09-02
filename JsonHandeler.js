@@ -219,8 +219,6 @@ queueHandler = require('./DMMessageHandeler');
 var getImId = function(id, list){
   console.log(id)
   for(var i = 0; i < list.length; i++){
-    console.log(list[i])
-      console.log(id)
     if(list[i].user == id){
       return list[i].id
     }
@@ -233,9 +231,7 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
       for(var i = 0; i < users.length; i++){
         if(!users[i].is_bot && users[i].id !== 'USLACKBOT'){
           var id = getImId(users[i].id, imIds);
-          console.log("HELLO WHATSUp: " + id);
-          // TODO
-          queueHandler.addMessage(teaminfoInput.team.id, users[i].id, [], token);
+          queueHandler.addMessage(teaminfoInput.team.id, users[i].id, [], token, id);
         }
       }
 
