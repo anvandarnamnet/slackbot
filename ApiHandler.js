@@ -82,6 +82,7 @@ var sendDirectMessage = function(channel, text, tokenm){
   console.log("Sending direct message")
   return new Promise(function(resolve, reject){
     var sendDMMessageString = 'https://slack.com/api/chat.postMessage?token=' + tokenm + '&channel=' + channel + '&text=' + text + '&as_user=true'  ;
+    sendDMMessageString = encodeURIComponent(sendDMMessageString);
     request(sendDMMessageString, function(error, response, body){
       if(error != null){
         console.log("error occured while sending dm");

@@ -69,12 +69,10 @@ var getApiTokenFromCookie = function(cookie) {
 }
 
 app.post('/api/slackverification', function(request, response){
-  console.log(request);
   var challenge = request.body.challenge;
   var teamId = request.body.team_id;
   var userId = request.body.event.user;
   var channel = request.body.event.channel;
-  console.log()
   messageQueue.popMessage(teamId, userId, channel).then(function(messageObj){
     apiHandler.sendDirectMessage(userId, messageObj.message, messageObj.token).then(function(body){
 
@@ -120,7 +118,6 @@ app.post('/api/newmessage', function(reques, responsee) {
   //timezone ska komma via request
   var tz_offset = requestBody.timeZoneOffset * 60;
 
-
   var timeString =  requestBody.schedule.time;
   var hours = timeString.split(":")[0];
   var minutes = timeString.split(":")[1];
@@ -144,7 +141,6 @@ app.post('/api/newmessage', function(reques, responsee) {
   correctTimeZone(days, time, tz_offset)
 
   var promises = [];
-  //  console.log(requestBody.users[0].id)
 
   promises.push(apiHandler.getTeamInfo(token));
   promises.push(apiHandler.channelInfo(token));
