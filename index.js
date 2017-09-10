@@ -19,7 +19,7 @@ cronJob.start();
 
 // setup our database connection
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
+mongoose.connect("mongodb://104.236.104.19:27017/slackbot");
 
 
 app.use(express.static(__dirname + '/public'));
@@ -119,6 +119,14 @@ app.post('/api/newmessage', function(reques, responsee) {
   // denna ska komma via request
   var message = requestBody.questions;
 
+  var users = [];
+
+  for(i in requestBody.users){
+     if(requestBody.users[i].selected){
+        users.push(requestBody.users[i]);
+     }
+  }
+
   //timezone ska komma via request
   var tz_offset = requestBody.timeZoneOffset * 60;
 
@@ -152,7 +160,7 @@ app.post('/api/newmessage', function(reques, responsee) {
 
     Promise.all(promises).then(values => {
     var repeatEvery = requestBody.schedule.repeat_every;
-    jsonHandler.addNewMessage(token, values[0], requestBody.users, time.getHours(), time.getMinutes(), message, days, repeatEvery, values[1]).then(function(back) {
+    jsonHandler.addNewMessage(token, values[0], users, time.getHours(), time.getMinutes(), message, days, repeatEvery, values[1]).then(function(back) {
       responsee.send({});
     });
   });
@@ -223,6 +231,9 @@ var getReformatedValues = function(values) {
     var users = [];
 
     for (var i = 0; i < incomingUsers.length; i++) {
+      if(incomingUsers[i].is_bot){
+        continue;
+      }
       var user = {
         id: incomingUsers[i].id,
         name: incomingUsers[i].real_name,
@@ -239,9 +250,9 @@ var getReformatedValues = function(values) {
       team: teamInfo,
       users: users,
       messages: messages
-    }
-    //console.log(users);
-    returnArray.push(obj);
+    };
+
+     returnArray.push(obj);
   }
   return returnArray;
 }
