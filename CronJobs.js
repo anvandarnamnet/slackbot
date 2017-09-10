@@ -50,11 +50,8 @@ var scheduleMessage = function(message) {
   // just add a method to the Date object; //you dont have to care about that :)
   fixWeekNumberMethod();
 
-  console.log("HELLO SCHEDULE MESSAGE")
   if (checkMessageShouldBeSend(message)) {
-    console.log("HELLO MESSAGE SCHOUKD BE SEND")
     var cron = new CronJob('00 ' + message.minute + ' ' + message.hour + ' * * *', function() {
-      console.log("HELLO CRON!")
       // get the newest version of the message object
       jsonHandler.getMessageById(message.id).then(function(cb) {
         // the user has removed the 1on1

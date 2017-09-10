@@ -23,10 +23,12 @@ mongoose.connect("mongodb://oskar:oskar@ds157809.mlab.com:57809/slackbot");
 
 
 app.use(express.static(__dirname + '/public'));
+
 // configure the app to use bodyParser()
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -107,6 +109,8 @@ app.get('/api/team', function(reques, responsee) {
 // test route to add messagesb
 app.post('/api/newmessage', function(reques, responsee) {
   var requestBody = reques.body;
+
+  console.log(requestBody)
 
   // teamnamn ska komma via request iallafall
   var token = requestBody.token

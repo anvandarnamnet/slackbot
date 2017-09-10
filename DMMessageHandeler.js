@@ -46,14 +46,12 @@ var addMessage = function(teamId, userId, messages, token, imId) {
                     uploadMessageQueue.save(function(err) {
                         if (err) {
                             reject("Something went wrong when adding a new message to the db");
-
                             console.log("Something went wrong when adding a new message to the db: " + err);
                         } else {
                             resolve("Messagequeue added");
                         }
                     });
                 } else{
-                  
                      addMessagesToQueue(messages, teamId,userId, token);
                      resolve()
                 }
@@ -83,8 +81,6 @@ var addMessagesToQueue = function(messages, teamId, userId, token){
        }
 
        updateObject(teamId,userId, existingMessages, token);
-
-
     });
 };
 
@@ -115,7 +111,8 @@ var popMessage = function(teamId, userId, channel){
         getMessagesQueueFromChannel(teamId,userId, channel).then(function(queue) {
             var message = ""
             console.log(queue)
-            if(queue[0].messageQueue.length === 0){
+            // WADUP
+            if(queue[0].messageQueue !== null && queue[0].messageQueue.length === 0){
                 reject("no message in queue");
                 return;
             }else{
@@ -131,15 +128,13 @@ var popMessage = function(teamId, userId, channel){
 module.exports.popMessage = popMessage;
 
 var getMessagesQueueFromChannel = function(teamId, userId, channel){
-    console.log(channel)
     return new Promise(function(resolve, reject) {
         var s = {
             teamId: teamId,
             userId: userId,
             imId:channel
+        };
 
-        }
-        console.log(s)
         var query = messageQueue.find(s);
 
         query.exec(function(err, queues) {
@@ -158,7 +153,6 @@ var getMessagesQueue = function(teamId, userId, token){
             teamId: teamId,
             userId: userId,
             token:token
-
         });
 
         query.exec(function(err, queues) {
