@@ -125,7 +125,6 @@ var getChannels = function(token){
         reject(error);
       }
       var jsonBody = JSON.parse(body);
-      console.log(jsonBody.channels[0].members)
     });
   })
 };
@@ -138,7 +137,6 @@ var channelInfo = function(token, channel){
                 reject(error);
             }
             var jsonBody = JSON.parse(body);
-            console.log(jsonBody)
             resolve(jsonBody.ims)
         });
     })

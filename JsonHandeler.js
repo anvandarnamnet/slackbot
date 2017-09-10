@@ -217,7 +217,6 @@ module.exports.messageHasBeenSend = messageHasBeenSend;
 queueHandler = require('./DMMessageHandeler');
 
 var getImId = function(id, list){
-  console.log(id)
   for(var i = 0; i < list.length; i++){
     if(list[i].user == id){
       return list[i].id

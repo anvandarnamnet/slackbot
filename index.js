@@ -1,3 +1,4 @@
+require('newrelic');
 let express = require('express');
 let app = express();
 let request = require('request');
@@ -110,8 +111,6 @@ app.get('/api/team', function(reques, responsee) {
 app.post('/api/newmessage', function(reques, responsee) {
   var requestBody = reques.body;
 
-  console.log(requestBody)
-
   // teamnamn ska komma via request iallafall
   var token = requestBody.token
   var teaminfo;
@@ -214,7 +213,6 @@ app.get('/api/getToken', function(request, response){
 // this is the callback function when coming back from slack login page
 app.get('/api/callback', function(reques, responsee) {
   mixpanel.track('login_with_slack');
-  console.log(reques.query)
   var code = reques.query.code;
   responsee.redirect("https://www.speakupcheckin.com/onboard?code=" + code)
 });

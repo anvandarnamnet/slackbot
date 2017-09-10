@@ -88,10 +88,8 @@ var scheduleMessage = function(message) {
         }
       });
     }, null, true, 'GMT0');
-    console.log('det händer!')
     cronJobs.set(message.id, cron);
   } else{
-    console.log("det händer inte");
   }
 }
 

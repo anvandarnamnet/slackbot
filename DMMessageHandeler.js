@@ -110,7 +110,6 @@ var popMessage = function(teamId, userId, channel){
     return new Promise(function(resolve, reject) {
         getMessagesQueueFromChannel(teamId,userId, channel).then(function(queue) {
             var message = ""
-            console.log(queue)
             // WADUP
             if(queue[0].messageQueue !== null && queue[0].messageQueue.length === 0){
                 reject("no message in queue");
