@@ -231,7 +231,7 @@ var getReformatedValues = function(values) {
     var users = [];
 
     for (var i = 0; i < incomingUsers.length; i++) {
-      if(incomingUsers[i].is_bot){
+      if(incomingUsers[i].id === "USLACKBOT"){
         continue;
       }
       var user = {
