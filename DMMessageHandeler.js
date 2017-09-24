@@ -114,15 +114,23 @@ module.exports.addMessage = addMessage;
 var popMessage = function(teamId, userId, channel){
     return new Promise(function(resolve, reject) {
         getMessagesQueueFromChannel(teamId,userId, channel).then(function(queue) {
-            var message = ""
             // WADUP
             if(queue[0].messageQueue !== null && queue[0].messageQueue.length === 0){
                 reject("no message in queue");
                 return;
-            }else{
-                message = queue[0].messageQueue[0];
             }
-            queue[0].messageQueue.splice(0,1);
+
+            var message = queue[0].messageQueue[0].messages[0];
+
+
+            // more logix
+
+            queue[0].messageQueue[0].messages[0].splice(0,1);
+            if(queue[0].messageQueue[0].messages.length === 0){
+                queue[0].messageQueue.splice(0,1);
+            }
+
+
             updateObject(teamId, userId, queue[0].messageQueue, queue[0].token);
             resolve({message:message, token: queue[0].token});
         });
