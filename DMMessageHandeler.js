@@ -117,6 +117,7 @@ var popMessage = function(teamId, userId, channel){
             // WADUP
             console.log("The queue:");
             console.log(queue);
+            console.log("TeamId: " + teamId + " userId: " + userId + "channel: " + channel);
             if(queue[0].messageQueue !== null && queue[0].messageQueue.length === 0){
                 reject("no message in queue");
                 return;
@@ -127,7 +128,7 @@ var popMessage = function(teamId, userId, channel){
 
             // more logix
 
-            queue[0].messageQueue[0].messages[0].splice(0,1);
+            queue[0].messageQueue[0].messages.splice(0,1);
             if(queue[0].messageQueue[0].messages.length === 0){
                 queue[0].messageQueue.splice(0,1);
             }
