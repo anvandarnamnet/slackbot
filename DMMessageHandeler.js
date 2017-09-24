@@ -9,13 +9,13 @@ var queueSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    messageQueue:{
+    messageQueue:[{
         messages:[{
             type:String
         }],
 
         id:String
-    },
+    }],
     token:{
       type:String,
       required:true
