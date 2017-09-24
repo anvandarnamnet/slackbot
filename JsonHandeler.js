@@ -230,7 +230,7 @@ var addNewMessage = function(token, teaminfoInput, users, hour, minute, message,
       for(var i = 0; i < users.length; i++){
         if(!users[i].is_bot && users[i].id !== 'USLACKBOT'){
           var id = getImId(users[i].id, imIds);
-          queueHandler.addMessage(teaminfoInput.team.id, users[i].id, [], token, id);
+          queueHandler.addMessage(teaminfoInput.team.id, users[i].id, null, token, id);
         }
       }
 

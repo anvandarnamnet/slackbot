@@ -55,7 +55,7 @@ var scheduleMessage = function(message) {
       // get the newest version of the message object
       jsonHandler.getMessageById(message.id).then(function(cb) {
         // the user has removed the 1on1
-        if (cb.length == 0) {
+        if (cb.length === 0) {
           console.log("User removed 1 on 1");
           return;
         }
@@ -70,16 +70,16 @@ var scheduleMessage = function(message) {
                  if(id !== 'USLACKBOT'){
                    if(queue[0].messageQueue.length === 0){
                    apiHandler.sendDirectMessage(id, updatedMessage.message[0], updatedMessage.token).then(function(cb) {});
-                   var newMessages = []
+                   var newMessages = [];
                    if(updatedMessage.message.length > 1){
                      for(var i = 1; i < updatedMessage.message.length; i++){
                        newMessages.push(updatedMessage.message[i])
                      }
                    }
-                      messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, newMessages, updatedMessage.token);
+                      messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, {messages: newMessages, id:updatedMessage.id}, updatedMessage.token);
                  }
                  else{
-                     messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, updatedMessage.message, updatedMessage.token);
+                     messageQueue.addMessage(updatedMessage.teamInfo.team.id, id, {messages: updatedMessage.message, id:updatedMessage.id}, updatedMessage.token);
                    }
                }
              });

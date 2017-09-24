@@ -20,7 +20,9 @@ cronJob.start();
 
 // setup our database connection
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://104.236.104.19:27017/slackbot");
+mongoose.connect("mongodb://oskarr:oskar@ds157809.mlab.com:57809/slackbot");
+//mongodb://<dbuser>:<dbpassword>@ds157809.mlab.com:57809/slackbot
+//mongodb://104.236.104.19:27017/slackbot
 
 
 app.use(express.static(__dirname + '/public'));
@@ -107,6 +109,8 @@ app.get('/api/team', function(reques, responsee) {
   });
 });
 
+//xoxp-143457452320-144242893812-147204566484-cbf27d9eca033a3d136fdf12b10ab505
+
 // test route to add messagesb
 app.post('/api/newmessage', function(reques, responsee) {
   var requestBody = reques.body;
@@ -132,9 +136,9 @@ app.post('/api/newmessage', function(reques, responsee) {
   var timeString =  requestBody.schedule.time;
   var hours = timeString.split(":")[0];
   var minutes = timeString.split(":")[1];
-  var time = new Date()
-  time.setHours(hours)
-  time.setMinutes(minutes)
+  var time = new Date();
+  time.setHours(hours);
+  time.setMinutes(minutes);
 
   // denna ska komma via post requestet
   var days = requestBody.schedule.repeat_on;

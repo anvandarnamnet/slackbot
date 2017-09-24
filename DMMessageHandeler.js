@@ -10,9 +10,11 @@ var queueSchema = mongoose.Schema({
         required:true
     },
     messageQueue:{
-        type: [{
-            type: String
-        }]
+        messages:[{
+            type:String
+        }],
+
+        id:String
     },
     token:{
       type:String,
@@ -29,14 +31,14 @@ var messageQueue = mongoose.model("messageQueue", queueSchema);
 module.exports = messageQueue;
 
 
-var addMessage = function(teamId, userId, messages, token, imId) {
+var addMessage = function(teamId, userId, messages, token, imId, messageId) {
     return new Promise(function (resolve, reject) {
             getMessagesQueue(teamId, userId, token).then(function (queues) {
                 if (queues.length === 0) {
                     var newMessageQueue = {
                         teamId: teamId,
                         userId: userId,
-                        messageQueue:messages,
+                        messageQueue:[],
                         imId: imId,
                         token:token
                     }
@@ -52,7 +54,10 @@ var addMessage = function(teamId, userId, messages, token, imId) {
                         }
                     });
                 } else{
-                     addMessagesToQueue(messages, teamId,userId, token);
+                    if(messages !== null){
+                        addMessagesToQueue(messages, teamId,userId, token, messageId);
+
+                    }
                      resolve()
                 }
                 })
@@ -61,28 +66,28 @@ var addMessage = function(teamId, userId, messages, token, imId) {
 
     };
 
-var addMessagesToQueue = function(messages, teamId, userId, token){
+var addMessagesToQueue = function(messages, teamId, userId, token, messageId){
     getMessagesQueue(teamId,userId, token).then(function(queue){
        var existingMessages = queue[0].messageQueue;
-       for(var i = 0; i < messages.length; i++){
-           exists = false;
-           if(existingMessages === null){
-               existingMessages = []
-           }
-           for(var j = 0; j < existingMessages.length; j++){
-               if(existingMessages[j] === messages[i]){
-                   exists = true;
-                   break;
-               }
-           }
-           if(!exists){
-               existingMessages.push(messages[i]);
-           }
-       }
+        if(existingMessages === null){
+            existingMessages = []
+        }
+
+        var exists = false;
+        for(var j = 0; j < existingMessages.length; j++){
+            if(existingMessages[j].id === messageId){
+                exists = true;
+                break;
+            }
+        }
+        if(!exists){
+            existingMessages.push(messages);
+        }
 
        updateObject(teamId,userId, existingMessages, token);
     });
 };
+
 
 var updateObject = function (teamId, userId, messages, token){
     var query = {
