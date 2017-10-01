@@ -2,7 +2,7 @@ var CronJob = require('cron').CronJob;
 var jsonHandler = require('./JsonHandeler');
 var apiHandler = require('./ApiHandler');
 var schedule = require('node-schedule');
-var cronJobs = new Map();
+var cronJobs = {};
 let messageQueue = require('./DMMessageHandeler');
 
 // method when someone change a message (updates or deletes)
@@ -19,7 +19,7 @@ module.exports.newMessage = newMessage;
 // start the cronjob
 var startCron = function() {
   console.log(cronJobs)
-    for (var cronJob in cronJobs.values()) {
+    for (var cronJob in cronJobs) {
         console.log("Cron " +  cronJob);
         cronJob.stop();
     }
@@ -28,12 +28,12 @@ var startCron = function() {
   scheduleMessages(now.getDay())
 
   new CronJob('00 00 00 * * *', function() {
-    for (var cronJob in cronJobs.values()) {
+    for (var cronJob in cronJobs) {
       console.log("Cron " +  cronJob);
       cronJob.stop();
     }
 
-    cronJobs = new Map();
+    cronJobs = {};
     var now = new Date();
     scheduleMessages(now.getDay())
 
@@ -96,7 +96,7 @@ var scheduleMessage = function(message) {
         }
       });
     }, null, true, 'GMT0');
-    cronJobs.set(message.id, cron);
+    cronJobs[message.id] = cron;
   } else{
   }
 }
