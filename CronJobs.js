@@ -18,11 +18,17 @@ module.exports.newMessage = newMessage;
 
 // start the cronjob
 var startCron = function() {
-  var now = new Date();
+    for (var cronJob in cronJobs.values()) {
+        console.log("Cron " +  cronJob);
+        cronJob.stop();
+    }
+
+    var now = new Date();
   scheduleMessages(now.getDay())
 
   new CronJob('00 00 00 * * *', function() {
     for (var cronJob in cronJobs.values()) {
+      console.log("Cron " +  cronJob);
       cronJob.stop();
     }
 
