@@ -18,6 +18,7 @@ module.exports.newMessage = newMessage;
 
 // start the cronjob
 var startCron = function() {
+  console.log(cronJobs)
     for (var cronJob in cronJobs.values()) {
         console.log("Cron " +  cronJob);
         cronJob.stop();
