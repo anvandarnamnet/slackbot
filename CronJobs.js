@@ -22,7 +22,7 @@ var startCron = function() {
   scheduleMessages(now.getDay())
 
   new CronJob('00 00 00 * * *', function() {
-    for (var cronJob of cronJobs.values()) {
+    for (var cronJob in cronJobs.values()) {
       cronJob.stop();
     }
 
