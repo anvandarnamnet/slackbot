@@ -20,9 +20,10 @@ cronJob.start();
 
 // setup our database connection
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://oskarr:oskar@ds157624.mlab.com:57624/slackk");
+mongoose.connect("mongodb://104.236.104.19:27017/slackbot");
 //mongodb://<dbuser>:<dbpassword>@ds157809.mlab.com:57809/slackbot
-//mongodb://104.236.104.19:27017/slackbot
+//
+//mongodb://oskarr:oskar@ds157624.mlab.com:57624/slackk
 
 
 app.use(express.static(__dirname + '/public'));
